@@ -9,13 +9,24 @@ class Receta {
     }
 }
 
-let cantidadDeseada = parseInt(prompt("Ingrese cuantas recetas describirá"));
+function agregadorIngredientes() {
+    let cantidad = parseInt(prompt("¿Cuántos ingredientes tiene?"));
+    const nuevoIngrediente = [];
+    for (let i = 0; i < cantidad; i++) {
+        nuevoIngrediente.push(prompt("Escribe el ingrediente"));
+    }
+    return nuevoIngrediente;
+}
 
+let cantidadDeseada = parseInt(prompt("¿Cuántas recetas le gustaría ingresar?"));
 const listadoRecetas = [];
 
 for (let i = 0; i < cantidadDeseada; i++) {
-    listadoRecetas.push(new Receta(prompt("Ingrese el nombre de la receta"), prompt("Ingrese, en formato array, los ingredientes"), parseInt(prompt("Cuanto tiempo en minutos demora su preparación?"))));
+    listadoRecetas.push(new Receta(prompt("Nombre de la receta:"), agregadorIngredientes(), parseInt(prompt("Cuanto tiempo en minutos demora su preparación?"))));
 }
+
+
+
 
 // Acá creo un nuevo array con todos los objetos creados y con el FOR OF muestro por consola los nombre de receta de c/u
 
@@ -24,8 +35,8 @@ for (const totalRecetas of listadoRecetas) {
 }
 
 
-// La siguiente función compara la cantidad de ingredientes para determinar cuál receta es más complicada de cocinar
-// Se usa length para esto, pero se creó como un método en la clase constructora para que sea más ágil llamarla
+// // La siguiente función compara la cantidad de ingredientes para determinar cuál receta es más complicada de cocinar
+// // Se usa length para esto, pero se creó como un método en la clase constructora para que sea más ágil llamarla
 
 function masDificilDeCocinar(primerReceta, segundaReceta) {
     if ((primerReceta.longitud()) > (segundaReceta.longitud())) {
