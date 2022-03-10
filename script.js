@@ -9,19 +9,19 @@ class Receta {
     }
 }
 
-const receta1 = new Receta("Fajitas", ["Carne de pollo", "Carne de Vaca", "Cebollas", "Pimientos"], 40);
-const receta2 = new Receta("Hamburguesa simple", ["Carne molida", "Pan", "Lechuga"], 20);
-const receta3 = new Receta("Pancho", ["Salchicha", "Pan"], 10);
-const receta4 = new Receta("Carne al horno con papas", ["Carne", "Especias", "Papas"], 90);
+let cantidadDeseada = parseInt(prompt("Ingrese cuantas recetas describirá"));
+
+const listadoRecetas = [];
+
+for (let i = 0; i < cantidadDeseada; i++) {
+    listadoRecetas.push(new Receta(prompt("Ingrese el nombre de la receta"), prompt("Ingrese, en formato array, los ingredientes"), parseInt(prompt("Cuanto tiempo en minutos demora su preparación?"))));
+}
 
 // Acá creo un nuevo array con todos los objetos creados y con el FOR OF muestro por consola los nombre de receta de c/u
-
-const listadoRecetas = [receta1, receta2, receta3, receta4];
 
 for (const totalRecetas of listadoRecetas) {
     console.log(totalRecetas.nombre)
 }
-
 
 
 // La siguiente función compara la cantidad de ingredientes para determinar cuál receta es más complicada de cocinar
@@ -37,13 +37,9 @@ function masDificilDeCocinar(primerReceta, segundaReceta) {
 
 //acá se pueden colocar las 2 recetas que se quieran comparar, por ejemplo la 3 y la 1
 
-masDificilDeCocinar(receta3, receta1);
+// masDificilDeCocinar(receta3, receta1);
 
-
-
-
-
-// Esta otra función añade en un nuevo array sólo las recetas que tengan tiempo de cocción menor a 20 minutos y las muestra por alert
+// Esta otra función añade en un nuevo array sólo las r1ecetas que tengan tiempo de cocción menor a 20 minutos y las muestra por alert
 
 const comidasRapidas = [];
 
