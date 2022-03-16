@@ -1,5 +1,5 @@
 //Clase constructora que me permite crear un listado de recetas
-class Receta {
+class Recetas {
     constructor(nombre, ingredientes, tiempoDeCoccion) {
         this.nombre = nombre;
         this.ingredientes = ingredientes;
@@ -16,8 +16,6 @@ class Receta {
 
 //Arrays
 const listadoRecetas = [];
-const comidasVegetarianas = [];
-const comidasRapidas = [];
 const tiempoTotalDeCocina = [];
 
 
@@ -33,28 +31,10 @@ function agregadorIngredientes() {
     return nuevoIngrediente.sort();         //Los acomodo alfabéticamente con sort
 }
 
-//Función que crea un array seleccionando únicamente las recetas que no tengan carne
-function recetasVegetarianas() {
-    listadoRecetas.forEach((element) => {
-        if (!element.recetaConCarne()) { // Niego con "!" el true del boleano, para obener las que NO tienen carne
-            comidasVegetarianas.push(element.nombre);
-        }
-    });
-}
-
-// Función que crea un array con las recetas que tengan tiempo de cocción menor a 20 minutos
-function agregarComidaRapida() {
-    listadoRecetas.forEach((element) => {
-        if (element.tiempoDeCoccion <= 20) {
-            comidasRapidas.push(element.nombre);
-        }
-    })
-}
-
 //Función que suma el tiempo de preparación de todas las recetas y devuelve el total
 function calcularTiempoTotal() {
-    for (const tiempos of listadoRecetas) {
-        tiempoTotalDeCocina.push(tiempos.tiempoDeCoccion);
+    for (const receta of listadoRecetas) {
+        tiempoTotalDeCocina.push(receta.tiempoDeCoccion);
     }
     return tiempoTotalDeCocina.reduce((acc, el) => acc + el, 0);
 }
@@ -77,20 +57,27 @@ function masDificilDeCocinar(primerReceta, segundaReceta) {
 let cantidadDeseada = parseInt(prompt("¿Cuántas recetas le gustaría ingresar?"));
 
 for (let i = 0; i < cantidadDeseada; i++) {
-    listadoRecetas.push(new Receta(prompt("Nombre de la receta:"), agregadorIngredientes(), parseInt(prompt("Cuanto tiempo en minutos demora su preparación?"))));
+    listadoRecetas.push(new Recetas(prompt("Nombre de la receta:"), agregadorIngredientes(), parseInt(prompt("Cuanto tiempo en minutos demora su preparación?"))));
 }
 
 
 
 
 
-// Lanzo las funciones y muestro alertas por pantalla
-recetasVegetarianas();
-agregarComidaRapida();
+
+// Creación de arrays de comidas vegetarianas y comidas rápidas
+const comidasVegetarianas = (listadoRecetas.filter((val) => val.recetaConCarne() == false)).map((el) => el.nombre);
+const comidasRapidas = (listadoRecetas.filter((val) => val.tiempoDeCoccion <= 20)).map((el) => el.nombre);
+
+
+
+
+
+
+
 alert(`El tiempo total para cocinar todas esas recetas es de ${calcularTiempoTotal()} minutos`);
 
-
-// Condicional para mostrar por alerta comidas vegetarianas y rápidas solo si el array tiene elementos
+// Condicional para mostrar por alerta comidas vegetarianas y rápidas solo si el array tiene el2ementos
 if (comidasVegetarianas.length != 0) {
     alert(`Las comidas aptas para vegetarianos son:\n${comidasVegetarianas.join(`\n`)}`);
 }
