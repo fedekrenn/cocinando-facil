@@ -15,7 +15,7 @@ class Recetas {
 
 
 const listadoRecetas = [];
-
+let nombreParaTitulo = prompt("Ingresa tu nombre");
 
 
 //FUNCIONES
@@ -109,3 +109,23 @@ if (listadoRecetas.length > 2) {
     alert("No se ingresaron las suficientes recetas para realizar una comparación");
 }
 
+
+// Credor de tabla en el DOM
+function enumerarRecetas(){
+    let titulo = document.querySelector("h1");
+    titulo.innerHTML = `Las mejores recetas de ${nombreParaTitulo}` 
+
+    let cuerpoTabla = document.querySelector("tbody");
+
+    for (const receta of listadoRecetas) {
+        let tabla = document.createElement("tr");
+
+        tabla.innerHTML = `<td>${receta.nombre}</td>
+                           <td>${(receta.ingredientes).join(", ")}</td>
+                           <td>${receta.tiempoDeCoccion} minutos</td>`;
+        
+        cuerpoTabla.appendChild(tabla);                   
+    }
+}
+
+enumerarRecetas();
