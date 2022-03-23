@@ -11,12 +11,37 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Raleway&display=swap" rel="stylesheet">
     <!-- CSS -->
     <link rel="stylesheet" href="./css/style.css">
-    <title>Proyecto final - JS</title>
+    <title>Desafio entregable | Acceso al DOM</title>
 </head>
 
 <body>
+    <header>
+        <h1>Las mejores recetas</h1>
+    </header>
     <main>
-        <h1></h1>
+
+        <form id="formulario">
+            <label for="nombreReceta">Ingresa el nombre de la receta</label>
+            <input type="text" name="nombreReceta" id="nombreReceta" required>
+            <label for="cantidadIngredientes">¿Cuantos ingredientes tiene?</label>
+            <select name="cantidadIngredientes" id="cantidadIngredientes" required>
+                <option value="eleccion">Elige una opción</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+            </select>
+            <div class="creadorCantidadRecetas">
+
+            </div>
+            <label for="tiempoCocina">¿Cuantos minutos demora su preparación?</label>
+            <input type="number" name="tiempoCocina" id="tiempoCocina" required>
+            <input type="submit" value="Enviar">
+        </form>
+
         <table>
             <thead>
                 <tr>
@@ -30,6 +55,7 @@
             </tbody>
         </table>
     </main>
+    <!-- Link JS -->
     <script src="./script.js"></script>
 </body>
 
