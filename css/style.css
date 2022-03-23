@@ -5,11 +5,11 @@
   font-family: "Raleway", sans-serif;
 }
 
-body{
-    background-color: rgb(245, 236, 224);
+body {
+  background-color: rgb(245, 236, 224);
 }
 
-header{
+header {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -19,7 +19,7 @@ header{
   background-size: cover;
 }
 
-img{
+img {
   width: 15%;
   align-self: baseline;
   position: absolute;
@@ -35,39 +35,50 @@ h1 {
   padding: 20px 30px;
 }
 
-h2{
+h2 {
   text-align: center;
   margin-top: 3em;
 }
 
-form{
+i {
+  color: purple;
+}
+
+i:hover {
+  color: red;
+  transition: 0.5s;
+  box-shadow: 11px 10px 26px 0px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 7px 7px 10px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 7px 7px 10px 0px rgba(0, 0, 0, 0.75);
+}
+
+form {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 100px 0px;
 }
 
-
-input, select{
+input,
+select {
   width: 40%;
   margin: 10px 0;
 }
 
-input[type="submit"]{
+input[type="submit"] {
   width: 100px;
 }
 
-.creadorCantidadRecetas{
+.creadorCantidadRecetas {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
-.areaIngrediente{
+.areaIngrediente {
   margin: 10px auto;
   display: block;
 }
-
 
 table {
   width: 50%;
@@ -88,12 +99,12 @@ td {
   padding: 5px;
 }
 
-th{
-    padding: 10px;
+th {
+  padding: 10px;
 }
 
-td:first-child{
-    font-weight: 900;
-    text-transform: uppercase;
-    text-align: left;
+td:first-child {
+  font-weight: 900;
+  text-transform: uppercase;
+  text-align: left;
 }

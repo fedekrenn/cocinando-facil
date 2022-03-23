@@ -15,7 +15,7 @@ class Recetas {
 
 
 //Arrays
-const arrayIngredientes = [];
+const listadoRecetas = [];
 let nuevaReceta = {};
 
 //Obtener Elementos del formulario y de la tabla
@@ -24,6 +24,7 @@ let nombreReceta = document.getElementById("nombreReceta");
 let cantidadIngredientes = document.getElementById("cantidadIngredientes");
 let tiempoReceta = document.getElementById("tiempoCocina");
 let divForm = document.querySelector(".creadorCantidadRecetas");
+
 
 
 //Obtenemos la cantidad de ingredientes que quiere el usuario y ejecutamos la función
@@ -38,7 +39,7 @@ formulario.addEventListener("submit", enviarFormulario);
 
 // Creamos en el HTML los input para la receta
 function crearInputs() {
-    
+
     borrarInputs(); // Ejecuto antes que nada la función de borrado para que, si hay previamente ing cargados, sean borrados
 
     for (let i = 0; i < cantidadIngredientes.value; i++) {
@@ -51,7 +52,9 @@ function crearInputs() {
 
 //Borramos en el HTML los inputs que previamente creamos, sirve para resetear la carga de ingredientes
 function borrarInputs() {
-    const borradoIngredientes = document.querySelectorAll(".areaIngrediente"); // la creo dentro de esta función ya que en la carga inicial del documento no existe el div, se crea según la cantidad que indica el usuario, entonces la llamo cuando la necesito
+    
+    // Se crea dentro de esta función ya que en la carga inicial del documento no existe el div, se crea según la cantidad que indica el usuario, entonces la llamo cuando la necesito
+    const borradoIngredientes = document.querySelectorAll(".areaIngrediente"); 
 
     //Ciclo para borrar según la cantidad de inputs creados
     for (const inputIngrediente of borradoIngredientes) {
@@ -59,12 +62,23 @@ function borrarInputs() {
     }
 }
 
+// Se borra la fila (por ende el ingrediente) del producto que el usuario clickee
+function removerReceta(event){
+
+    const botonApretado = event.target;
+    botonApretado.closest("tr").remove();
+}
+
+
+
 
 //Función que se ejecuta al enviar el form
 function enviarFormulario(e) {
 
     //Reseteo de evento default
     e.preventDefault();
+
+    const arrayIngredientes = [];
 
     // Creo un array con los ingredientes que recojo de los input
     let listadoIngredientes = document.querySelectorAll(".areaIngrediente");
@@ -74,6 +88,7 @@ function enviarFormulario(e) {
 
     //Creo la receta
     nuevaReceta = new Recetas(nombreReceta.value, arrayIngredientes, tiempoReceta.value);
+    listadoRecetas.push(nuevaReceta);
 
     //Añado la receta a la tabla llamando a la función
     imprimirReceta();
@@ -82,11 +97,6 @@ function enviarFormulario(e) {
     nombreReceta.value = "";
     cantidadIngredientes.value = "";
     tiempoReceta.value = "";
-
-    //Ciclo para borrar cada ingrediente del array, así en la próxima receta no quedan guardados los anteriores
-    while (arrayIngredientes.length > 0) {
-        arrayIngredientes.pop();
-    }
 
     //Llamo a la función que borra los input HTML
     borrarInputs();
@@ -99,14 +109,18 @@ function imprimirReceta() {
     let cuerpoTabla = document.querySelector("tbody");
     let tabla = document.createElement("tr");
 
-    tabla.innerHTML = `<td>${nuevaReceta.nombre}</td>
-                           <td>${(nuevaReceta.ingredientes).join(", ")}</td>
-                           <td>${nuevaReceta.tiempoDeCoccion} minutos</td>`;
+    for (let i = 0; i < listadoRecetas.length; i++) {
+        tabla.innerHTML = `<td>${listadoRecetas[i].nombre}</td>
+                           <td>${(listadoRecetas[i].ingredientes).join(", ")}</td>
+                           <td>${listadoRecetas[i].tiempoDeCoccion} minutos</td>
+                           <td><i class="fa-solid fa-trash botonBorrado"></i></td>`;
 
-    cuerpoTabla.appendChild(tabla);
+        cuerpoTabla.appendChild(tabla);
+    };
+
+    //Evento de borrado de receta en tabla, se declara en este scoope ya que se puede ejecutar luego de crear un elemento
+    tabla.querySelector(".botonBorrado").addEventListener("click", removerReceta);
 }
-
-
 
 
 
