@@ -14,8 +14,8 @@ class Recetas {
 }
 
 
-//Arrays
-const listadoRecetas = [];
+//Arrays, son definidos con let y no con const ya que posteriormente se modifican(borrado para nueva carga)
+let listadoDeRecetas = [];
 let nuevaReceta = {};
 
 //Obtener Elementos del formulario y de la tabla
@@ -24,18 +24,51 @@ let nombreReceta = document.getElementById("nombreReceta");
 let cantidadIngredientes = document.getElementById("cantidadIngredientes");
 let tiempoReceta = document.getElementById("tiempoCocina");
 let divForm = document.querySelector(".creadorCantidadRecetas");
-
+let guardadoLocal = document.querySelector(".guardadoLocal")
 
 
 //Obtenemos la cantidad de ingredientes que quiere el usuario y ejecutamos la función
 cantidadIngredientes.addEventListener("change", crearInputs);
 formulario.addEventListener("submit", enviarFormulario);
+guardadoLocal.addEventListener("click", enviarALocal);
 
 
 
 
 
 //FUNCIONES
+
+function enviarALocal() {
+
+    //Aquí vacío el array, para evitar que si da muchas veces al boton "Guardar receta", se multipliquen valores
+    listadoDeRecetas = []; 
+
+    //Obtengo los valores de las recetas que el usuario cargó.
+    let nombre = document.getElementsByClassName("recetaNombre");
+    let ingredientes = document.getElementsByClassName("recetaIngredientes");
+    let tiempo = document.getElementsByClassName("recetaTiempos");
+
+
+    //Ciclo que pushea 
+    for (let i = 0; i < ingredientes.length; i++) {
+        
+        //Esta función obtiene los ingredientes en forma string y los lista en un array
+        function convertirEnArray(){
+            let convirtiendoIngredientes = ingredientes[i].outerText;
+            let resultado = convirtiendoIngredientes.split(", ");
+            return resultado;
+        }
+
+        //Tomando los elementos del html creo el listado de recetas que serán guardados en el localStorage
+        listadoDeRecetas.push(new Recetas(nombre[i].outerText, convertirEnArray(), parseInt(tiempo[i].outerText)));
+    }
+
+    //Convierto en string y envio al localStorage
+    let recetasJSON = JSON.stringify(listadoDeRecetas);
+    localStorage.setItem("recetas guardadas", recetasJSON);
+}
+
+
 
 // Creamos en el HTML los input para la receta
 function crearInputs() {
@@ -52,9 +85,9 @@ function crearInputs() {
 
 //Borramos en el HTML los inputs que previamente creamos, sirve para resetear la carga de ingredientes
 function borrarInputs() {
-    
+
     // Se crea dentro de esta función ya que en la carga inicial del documento no existe el div, se crea según la cantidad que indica el usuario, entonces la llamo cuando la necesito
-    const borradoIngredientes = document.querySelectorAll(".areaIngrediente"); 
+    const borradoIngredientes = document.querySelectorAll(".areaIngrediente");
 
     //Ciclo para borrar según la cantidad de inputs creados
     for (const inputIngrediente of borradoIngredientes) {
@@ -63,7 +96,7 @@ function borrarInputs() {
 }
 
 // Se borra la fila (por ende el ingrediente) del producto que el usuario clickee
-function removerReceta(event){
+function removerReceta(event) {
 
     const botonApretado = event.target;
     botonApretado.closest("tr").remove();
@@ -88,7 +121,6 @@ function enviarFormulario(e) {
 
     //Creo la receta
     nuevaReceta = new Recetas(nombreReceta.value, arrayIngredientes, tiempoReceta.value);
-    listadoRecetas.push(nuevaReceta);
 
     //Añado la receta a la tabla llamando a la función
     imprimirReceta();
@@ -109,17 +141,25 @@ function imprimirReceta() {
     let cuerpoTabla = document.querySelector("tbody");
     let tabla = document.createElement("tr");
 
-    for (let i = 0; i < listadoRecetas.length; i++) {
-        tabla.innerHTML = `<td>${listadoRecetas[i].nombre}</td>
-                           <td>${(listadoRecetas[i].ingredientes).join(", ")}</td>
-                           <td>${listadoRecetas[i].tiempoDeCoccion} minutos</td>
+    tabla.innerHTML = `<td class="recetaNombre">${nuevaReceta.nombre}</td>
+                           <td class="recetaIngredientes">${(nuevaReceta.ingredientes).join(", ")}</td>
+                           <td class="recetaTiempos">${nuevaReceta.tiempoDeCoccion}</td>
                            <td><i class="fa-solid fa-trash botonBorrado"></i></td>`;
 
-        cuerpoTabla.appendChild(tabla);
-    };
+    cuerpoTabla.appendChild(tabla);
 
     //Evento de borrado de receta en tabla, se declara en este scoope ya que se puede ejecutar luego de crear un elemento
     tabla.querySelector(".botonBorrado").addEventListener("click", removerReceta);
+}
+
+function actualizarCarrito() {
+    const totalParaAgregarAlCarrito = document.getElementsByClassName('recetaNombre');
+    console.log(totalParaAgregarAlCarrito);
+    for (let i = 0; i < listadoRecetas.length; i++) {
+        let bolean = listadoRecetas.some((val) => val.nombre == (totalParaAgregarAlCarrito[i].outerText));
+        console.log(bolean);
+
+    };
 }
 
 
