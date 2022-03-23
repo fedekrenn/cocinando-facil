@@ -11,18 +11,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Raleway&display=swap" rel="stylesheet">
     <!-- CSS -->
     <link rel="stylesheet" href="./css/style.css">
-    <title>Desafio entregable | Acceso al DOM</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="./assets/icons/favicon.svg" type="image/x-icon">
+    <title>Cocinando Fácil | Web para armar tu receta</title>
 </head>
 
 <body>
     <header>
+        <img src="./assets/icons/logo-cocinando-facil.svg" alt="logo Cocinando Fácil">
         <h1>Las mejores recetas</h1>
     </header>
     <main>
-
+        <h2>Constructor de recetas</h2>
         <form id="formulario">
             <label for="nombreReceta">Ingresa el nombre de la receta</label>
-            <input type="text" name="nombreReceta" id="nombreReceta" required>
+            <input type="text" name="nombreReceta" id="nombreReceta" placeholder="Ej: Pizza" required>
             <label for="cantidadIngredientes">¿Cuantos ingredientes tiene?</label>
             <select name="cantidadIngredientes" id="cantidadIngredientes" required>
                 <option value="eleccion">Elige una opción</option>
@@ -38,7 +41,7 @@
 
             </div>
             <label for="tiempoCocina">¿Cuantos minutos demora su preparación?</label>
-            <input type="number" name="tiempoCocina" id="tiempoCocina" required>
+            <input type="number" name="tiempoCocina" id="tiempoCocina" placeholder="Ej: 30" required>
             <input type="submit" value="Enviar">
         </form>
 

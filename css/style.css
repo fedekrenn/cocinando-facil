@@ -12,14 +12,32 @@ body{
 header{
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-image: url(/assets/img/fondo-cocina.jpg);
+  background-size: cover;
+}
+
+img{
+  width: 15%;
+  align-self: baseline;
+  position: absolute;
+  top: 10px;
+  left: 10px;
 }
 
 h1 {
   text-align: center;
   padding: 20px;
   font-family: "Poppins", sans-serif;
+  background-color: hsla(0, 0%, 100%, 0.8);
+  padding: 20px 30px;
+}
+
+h2{
+  text-align: center;
+  margin-top: 3em;
 }
 
 form{

@@ -14,21 +14,106 @@ class Recetas {
 }
 
 
-const listadoRecetas = [];
-let nombreParaTitulo = prompt("Ingresa tu nombre");
+//Arrays
+const arrayIngredientes = [];
+let nuevaReceta = {};
+
+//Obtener Elementos del formulario y de la tabla
+let formulario = document.getElementById("formulario");
+let nombreReceta = document.getElementById("nombreReceta");
+let cantidadIngredientes = document.getElementById("cantidadIngredientes");
+let tiempoReceta = document.getElementById("tiempoCocina");
+let divForm = document.querySelector(".creadorCantidadRecetas");
+
+
+//Obtenemos la cantidad de ingredientes que quiere el usuario y ejecutamos la función
+cantidadIngredientes.addEventListener("change", crearInputs);
+formulario.addEventListener("submit", enviarFormulario);
+
+
+
 
 
 //FUNCIONES
 
-//Función que crea un array con los ingredientes que formarán parte de cada receta 
-function agregadorIngredientes() {
-    let cantidad = parseInt(prompt("¿Cuántos ingredientes tiene?"));
-    const nuevoIngrediente = [];
-    for (let i = 0; i < cantidad; i++) {
-        nuevoIngrediente.push(prompt(`Escribe el ${i+1}° ingrediente`));
+// Creamos en el HTML los input para la receta
+function crearInputs() {
+    
+    borrarInputs(); // Ejecuto antes que nada la función de borrado para que, si hay previamente ing cargados, sean borrados
+
+    for (let i = 0; i < cantidadIngredientes.value; i++) {
+        let tabla = document.createElement("div")
+        tabla.innerHTML = `<input type="text" class="areaIngrediente" placeholder="Ingrediente ${i + 1}" required>`;
+        divForm.appendChild(tabla);
     }
-    return nuevoIngrediente.sort();         //Los acomodo alfabéticamente con sort
 }
+
+
+//Borramos en el HTML los inputs que previamente creamos, sirve para resetear la carga de ingredientes
+function borrarInputs() {
+    const borradoIngredientes = document.querySelectorAll(".areaIngrediente"); // la creo dentro de esta función ya que en la carga inicial del documento no existe el div, se crea según la cantidad que indica el usuario, entonces la llamo cuando la necesito
+
+    //Ciclo para borrar según la cantidad de inputs creados
+    for (const inputIngrediente of borradoIngredientes) {
+        inputIngrediente.remove();
+    }
+}
+
+
+//Función que se ejecuta al enviar el form
+function enviarFormulario(e) {
+
+    //Reseteo de evento default
+    e.preventDefault();
+
+    // Creo un array con los ingredientes que recojo de los input
+    let listadoIngredientes = document.querySelectorAll(".areaIngrediente");
+    for (const ingrediente of listadoIngredientes) {
+        arrayIngredientes.push(ingrediente.value);
+    }
+
+    //Creo la receta
+    nuevaReceta = new Recetas(nombreReceta.value, arrayIngredientes, tiempoReceta.value);
+
+    //Añado la receta a la tabla llamando a la función
+    imprimirReceta();
+
+    //Reseteo los valores, para añadir nuevas recetas
+    nombreReceta.value = "";
+    cantidadIngredientes.value = "";
+    tiempoReceta.value = "";
+
+    //Ciclo para borrar cada ingrediente del array, así en la próxima receta no quedan guardados los anteriores
+    while (arrayIngredientes.length > 0) {
+        arrayIngredientes.pop();
+    }
+
+    //Llamo a la función que borra los input HTML
+    borrarInputs();
+}
+
+
+// Aplicamos cada receta a la tabla
+function imprimirReceta() {
+
+    let cuerpoTabla = document.querySelector("tbody");
+    let tabla = document.createElement("tr");
+
+    tabla.innerHTML = `<td>${nuevaReceta.nombre}</td>
+                           <td>${(nuevaReceta.ingredientes).join(", ")}</td>
+                           <td>${nuevaReceta.tiempoDeCoccion} minutos</td>`;
+
+    cuerpoTabla.appendChild(tabla);
+}
+
+
+
+
+
+
+// NUEVOOOOOO
+
+/*
 
 //Función que compara la cantidad de ingredientes para determinar cuál receta es más complicada de cocinar, se usa el método .longitud() del objeto 
 function masDificilDeCocinar(primerReceta, segundaReceta) {
@@ -40,17 +125,6 @@ function masDificilDeCocinar(primerReceta, segundaReceta) {
         alert(`Cocinar ${segundaReceta.nombre} es más difícil ya que lleva ${segundaReceta.longitud()} ingredientes, en cambio ${primerReceta.nombre} lleva sólamente ${primerReceta.longitud()}`);
     }
 }
-
-
-
-
-// Creación de c/u de las recetas, con un ciclo para poder obtener la cantidad deseada por el usuario
-let cantidadDeseada = parseInt(prompt("¿Cuántas recetas le gustaría ingresar?"));
-
-for (let i = 0; i < cantidadDeseada; i++) {
-    listadoRecetas.push(new Recetas(prompt("Nombre de la receta:"), agregadorIngredientes(), parseInt(prompt("Cuanto tiempo en minutos demora su preparación?"))));
-}
-
 
 
 
@@ -76,11 +150,6 @@ if (comidasRapidas.length != 0) {
 
 
 
-
-
-
-
-
 // El código a continuación crea un listado de los nombres de las recetas y adicionalmente le agrega un contador 1 -, 2-, etc según cuantas recetas hay
 const contador = listadoRecetas.map((val) => val.nombre);
 const contadorConRecetas = [];
@@ -89,7 +158,7 @@ for (let i = 0; i < contador.length; i++) {
     contadorConRecetas[i] = `${i + 1} - ${contador[i]}`;
 }
 
-
+*/
 
 
 
@@ -97,6 +166,8 @@ for (let i = 0; i < contador.length; i++) {
 que recetas comparar en el caso de que haya 3 o más, en el caso de ser 2 recetas las compara automáticamente
 y en el caso que haya 1 o ninguna no efectua comparación
 */
+
+/*
 if (listadoRecetas.length > 2) {
     alert(`Usted ha seleccionado ${cantidadDeseada} recetas, vamos a comparar 2 de ellas para ver cual es más difícil de cocinar según sus ingredientes`);
     let comparacionReceta1 = listadoRecetas[(parseInt(prompt(`Ingrese el número de receta del 1 al ${cantidadDeseada}\n${contadorConRecetas.join("\n")}`)) - 1)];
@@ -109,23 +180,4 @@ if (listadoRecetas.length > 2) {
     alert("No se ingresaron las suficientes recetas para realizar una comparación");
 }
 
-
-// Credor de tabla en el DOM
-function enumerarRecetas(){
-    let titulo = document.querySelector("h1");
-    titulo.innerHTML = `Las mejores recetas de ${nombreParaTitulo}` 
-
-    let cuerpoTabla = document.querySelector("tbody");
-
-    for (const receta of listadoRecetas) {
-        let tabla = document.createElement("tr");
-
-        tabla.innerHTML = `<td>${receta.nombre}</td>
-                           <td>${(receta.ingredientes).join(", ")}</td>
-                           <td>${receta.tiempoDeCoccion} minutos</td>`;
-        
-        cuerpoTabla.appendChild(tabla);                   
-    }
-}
-
-enumerarRecetas();
+*/
