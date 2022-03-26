@@ -17,13 +17,17 @@
     <link rel="shortcut icon" href="./assets/icons/favicon.svg" type="image/x-icon">
     <title>Cocinando Fácil | Web para armar tu receta</title>
 </head>
+
 <body>
     <header>
         <img src="./assets/icons/logo-cocinando-facil.svg" alt="logo Cocinando Fácil">
-        <h1>Las mejores recetas</h1>
+        <h1>Almacén de recetas</h1>
+        <a href="#mainContent"><i class="fa-solid fa-circle-arrow-down"></i></a>
     </header>
-    <main>
-        <h2>Constructor de recetas</h2>
+    <main id="mainContent">
+        <h2>Armá tu propio recetario</h2>
+        <p>Te ofrecemos este espacio para que vos, chef, puedas cargar tus recetas y así poder sorprender a tus clientes
+            con los mejores sabores y experiencias</p>
         <form id="formulario">
             <label for="nombreReceta">Ingresa el nombre de la receta</label>
             <input type="text" name="nombreReceta" id="nombreReceta" placeholder="Ej: Pizza" required>
@@ -37,6 +41,9 @@
                 <option value="5">5</option>
                 <option value="6">6</option>
                 <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
             </select>
             <div class="creadorCantidadRecetas">
 
@@ -59,7 +66,9 @@
 
             </tbody>
         </table>
-        <button class="guardadoLocal">Guardar recetas</button>
+        <div class="cont">
+            <button class="btn guardadoLocal"><span>Guardar recetas</span><img src="https://i.cloudup.com/2ZAX3hVsBE-3000x3000.png"></button>
+        </div>
     </main>
     <!-- Link JS -->
     <script src="./script.js"></script>

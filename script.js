@@ -5,10 +5,10 @@ class Recetas {
         this.ingredientes = ingredientes;
         this.tiempoDeCoccion = tiempoDeCoccion;
     }
-    longitud() {                                      //Método para conocer cantidad de ingredientes
+    longitud() {                                      // Método para conocer cantidad de ingredientes
         return (this.ingredientes).length;
     }
-    recetaConCarne() {                                 //Método para saber si la receta tiene carne
+    recetaConCarne() {                                 // Método para saber si la receta tiene carne
         return (this.ingredientes).some((val) => val == "carne" || val == "Carne");
     }
 }
@@ -24,7 +24,7 @@ let formulario = document.getElementById("formulario");
 let nombreReceta = document.getElementById("nombreReceta");
 let cantidadIngredientes = document.getElementById("cantidadIngredientes");
 let tiempoReceta = document.getElementById("tiempoCocina");
-let divForm = document.querySelector(".creadorCantidadRecetas");
+let divContenedorTablaRecetas = document.querySelector(".creadorCantidadRecetas");
 let guardadoLocal = document.querySelector(".guardadoLocal");
 
 
@@ -46,7 +46,7 @@ function crearInputs() {
     for (let i = 0; i < cantidadIngredientes.value; i++) {
         let tabla = document.createElement("div");
         tabla.innerHTML = `<input type="text" class="areaIngrediente" placeholder="Ingrediente ${i + 1}" required>`;
-        divForm.appendChild(tabla);
+        divContenedorTablaRecetas.appendChild(tabla);
     }
 }
 
@@ -100,20 +100,20 @@ function imprimirReceta() {
     let cuerpoTabla = document.querySelector("tbody");
     let tabla = document.createElement("tr");
 
-    tabla.innerHTML = `<td class="recetaNombre">${nuevaReceta.nombre}</td>
-                           <td class="recetaIngredientes">${(nuevaReceta.ingredientes).join(", ")}</td>
-                           <td class="recetaTiempos">${nuevaReceta.tiempoDeCoccion}</td>
-                           <td><i class="fa-solid fa-trash botonBorrado"></i></td>`;
+    tabla.innerHTML = `<td class="nombreRecetaGuardada">${nuevaReceta.nombre}</td>
+                       <td class="recetaIngredientesGuardada">${(nuevaReceta.ingredientes).join(", ")}</td>
+                       <td class="recetaTiemposGuardada">${nuevaReceta.tiempoDeCoccion}</td>
+                       <td><i class="fa-solid fa-trash botonBorrado"></i></td>`;
 
     cuerpoTabla.appendChild(tabla);
 
     //Evento de borrado de receta en tabla, se declara en este scoope ya que se puede ejecutar luego de crear un elemento
-    tabla.querySelector(".botonBorrado").addEventListener("click", removerReceta);
+    tabla.querySelector(".botonBorrado").addEventListener("click", removerRecetaDeTabla);
 }
 
 
 // Se borra la fila (por ende el ingrediente) del producto que el usuario clickee
-function removerReceta(event) {
+function removerRecetaDeTabla(event) {
 
     const botonApretado = event.target;
     botonApretado.closest("tr").remove();
@@ -126,15 +126,15 @@ function enviarALocal() {
     listadoDeRecetas = [];
 
     //Obtengo los valores de las recetas que el usuario cargó.
-    let nombre = document.getElementsByClassName("recetaNombre");
-    let ingredientes = document.getElementsByClassName("recetaIngredientes");
-    let tiempo = document.getElementsByClassName("recetaTiempos");
+    let nombre = document.getElementsByClassName("nombreRecetaGuardada");
+    let ingredientes = document.getElementsByClassName("recetaIngredientesGuardada");
+    let tiempo = document.getElementsByClassName("recetaTiemposGuardada");
 
 
-    //Ciclo que pushea 
+    //Ciclo que pushea toda la info al array listadoDeRecetas
     for (let i = 0; i < ingredientes.length; i++) {
 
-        //Función de flecha que obtiene los ingredientes en forma string y los lista en un array
+        //Función que obtiene los ingredientes en forma string y los lista en un array
         function convertirEnArray(){
             let convirtiendoIngredientes = ingredientes[i].outerText;
             let resultado = convirtiendoIngredientes.split(", ");
