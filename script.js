@@ -8,7 +8,7 @@ class Recetas {
     longitud() {                                      // Método para conocer cantidad de ingredientes
         return (this.ingredientes).length;
     }
-    recetaConCarne() {                                 // Método para saber si la receta tiene carne
+    recetaConCarne() {                                // Método para saber si la receta tiene carne
         return (this.ingredientes).some((val) => val == "carne" || val == "Carne");
     }
 }
@@ -39,7 +39,7 @@ guardadoLocal.addEventListener("click", enviarALocal);
 
 
 //Cuando se carga la página llamo a la función que trae las recetas guardadas en el Local Storage
-window.onload = imprimirDatosLocalStorage();
+window.onload = imprimirReceta(baseDeDatos);
 
 
 
@@ -89,9 +89,10 @@ function enviarFormulario(e) {
 
     //Creo la receta
     nuevaReceta = new Recetas(nombreReceta.value, arrayIngredientes, tiempoReceta.value);
+    listadoDeRecetas.push(nuevaReceta);
 
     //Añado la receta a la tabla llamando a la función
-    imprimirReceta();
+    imprimirReceta(listadoDeRecetas);
 
     //Reseteo los valores, para añadir nuevas recetas
     nombreReceta.value = "";
@@ -100,24 +101,6 @@ function enviarFormulario(e) {
 
     //Llamo a la función que borra los input HTML
     borrarInputs();
-}
-
-
-// Aplicamos cada receta a la tabla
-function imprimirReceta() {
-
-    let cuerpoTabla = document.querySelector("tbody");
-    let tabla = document.createElement("tr");
-
-    tabla.innerHTML = `<td class="nombreRecetaGuardada">${nuevaReceta.nombre}</td>
-                       <td class="recetaIngredientesGuardada">${(nuevaReceta.ingredientes).join(", ")}</td>
-                       <td class="recetaTiemposGuardada">${nuevaReceta.tiempoDeCoccion}</td>
-                       <td><i class="fa-solid fa-trash botonBorrado"></i></td>`;
-
-    cuerpoTabla.appendChild(tabla);
-
-    //Evento de borrado de receta en tabla, se declara en este scoope ya que se puede ejecutar luego de crear un elemento
-    tabla.querySelector(".botonBorrado").addEventListener("click", removerRecetaDeTabla);
 }
 
 
@@ -157,24 +140,34 @@ function enviarALocal() {
     //Convierto en string y envio al localStorage
     let recetasJSON = JSON.stringify(listadoDeRecetas);
     localStorage.setItem("recetas guardadas", recetasJSON);
+    listadoDeRecetas = [];
 }
 
-function imprimirDatosLocalStorage() {
+
+/* Aplicamos cada receta a la tabla, se pasa un parámetro ya que lo reutilizo dependiendo el array, primero para
+ crear las recetas que el usuario va cargando y luego para lo que está en el local storage */
+function imprimirReceta(array) {
 
     let cuerpoTabla = document.querySelector("tbody");
 
-    for (const i of baseDeDatos) {
+    for (const i of array) {
         let tabla = document.createElement("tr");
+
         tabla.innerHTML = `<td class="nombreRecetaGuardada">${i.nombre}</td>
                            <td class="recetaIngredientesGuardada">${(i.ingredientes).join(", ")}</td>
                            <td class="recetaTiemposGuardada">${i.tiempoDeCoccion}</td>
                            <td><i class="fa-solid fa-trash botonBorrado"></i></td>`;
 
         cuerpoTabla.appendChild(tabla);
+
         //Evento de borrado de receta en tabla, se declara en este scoope ya que se puede ejecutar luego de crear un elemento
         tabla.querySelector(".botonBorrado").addEventListener("click", removerRecetaDeTabla);
     }
+
+    //Reseteo el array, ya que si no cuando se da a guardar se crean muchas veces tablas con recetas repetidas
+    listadoDeRecetas = [];
 }
+
 
 
 
