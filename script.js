@@ -19,6 +19,10 @@ let listadoDeRecetas = [];
 let nuevaReceta = {};
 
 
+//Obtengo lo almacenado en localStore de haber algun dato, uso el operador avanzado lógico OR para que cree el array en caso de no haber nada
+let baseDeDatos = JSON.parse(localStorage.getItem('recetas guardadas')) || [];
+
+
 //Obtener Elementos del formulario y de la tabla
 let formulario = document.getElementById("formulario");
 let nombreReceta = document.getElementById("nombreReceta");
@@ -34,11 +38,16 @@ formulario.addEventListener("submit", enviarFormulario);
 guardadoLocal.addEventListener("click", enviarALocal);
 
 
+//Cuando se carga la página llamo a la función que trae las recetas guardadas en el Local Storage
+window.onload = imprimirDatosLocalStorage();
+
+
+
 
 
 //FUNCIONES
 
-// Creamos en el HTML los input para la receta
+// Creamos en el HTML los input para el form que crea la receta
 function crearInputs() {
 
     borrarInputs(); // Ejecuto antes que nada la función de borrado para que, si hay previamente ing cargados, sean borrados
@@ -51,7 +60,7 @@ function crearInputs() {
 }
 
 
-//Borramos en el HTML los inputs que previamente creamos, sirve para resetear la carga de ingredientes
+//Borramos en el HTML los inputs que previamente creamos, sirve para resetear la carga de ingredientes cuando enviamos una receta
 function borrarInputs() {
 
     // Se crea dentro de esta función ya que en la carga inicial del documento no existe el div, se crea según la cantidad que indica el usuario, entonces la llamo cuando la necesito
@@ -135,7 +144,7 @@ function enviarALocal() {
     for (let i = 0; i < ingredientes.length; i++) {
 
         //Función que obtiene los ingredientes en forma string y los lista en un array
-        function convertirEnArray(){
+        function convertirEnArray() {
             let convirtiendoIngredientes = ingredientes[i].outerText;
             let resultado = convirtiendoIngredientes.split(", ");
             return resultado;
@@ -148,6 +157,23 @@ function enviarALocal() {
     //Convierto en string y envio al localStorage
     let recetasJSON = JSON.stringify(listadoDeRecetas);
     localStorage.setItem("recetas guardadas", recetasJSON);
+}
+
+function imprimirDatosLocalStorage() {
+
+    let cuerpoTabla = document.querySelector("tbody");
+
+    for (const i of baseDeDatos) {
+        let tabla = document.createElement("tr");
+        tabla.innerHTML = `<td class="nombreRecetaGuardada">${i.nombre}</td>
+                           <td class="recetaIngredientesGuardada">${i.ingredientes}</td>
+                           <td class="recetaTiemposGuardada">${i.tiempoDeCoccion}</td>
+                           <td><i class="fa-solid fa-trash botonBorrado"></i></td>`;
+
+        cuerpoTabla.appendChild(tabla);
+        //Evento de borrado de receta en tabla, se declara en este scoope ya que se puede ejecutar luego de crear un elemento
+        tabla.querySelector(".botonBorrado").addEventListener("click", removerRecetaDeTabla);
+    }
 }
 
 

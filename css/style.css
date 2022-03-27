@@ -59,7 +59,7 @@ i {
 }
 
 i:hover {
-  color: red;
+  color: purple;
   transition: 0.5s;
   box-shadow: 11px 10px 26px 0px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 7px 7px 10px 0px rgba(0, 0, 0, 0.75);
