@@ -166,7 +166,7 @@ function imprimirDatosLocalStorage() {
     for (const i of baseDeDatos) {
         let tabla = document.createElement("tr");
         tabla.innerHTML = `<td class="nombreRecetaGuardada">${i.nombre}</td>
-                           <td class="recetaIngredientesGuardada">${i.ingredientes}</td>
+                           <td class="recetaIngredientesGuardada">${(i.ingredientes).join(", ")}</td>
                            <td class="recetaTiemposGuardada">${i.tiempoDeCoccion}</td>
                            <td><i class="fa-solid fa-trash botonBorrado"></i></td>`;
 
