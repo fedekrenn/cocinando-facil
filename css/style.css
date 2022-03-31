@@ -59,7 +59,7 @@ i {
 }
 
 i:hover {
-  color: purple;
+  color: rgb(250, 4, 4);
   transition: 0.5s;
   box-shadow: 11px 10px 26px 0px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 7px 7px 10px 0px rgba(0, 0, 0, 0.75);
@@ -229,7 +229,7 @@ td:first-child {
   border: none;
 }
 
-button {
+button.guardadoLocal {
   border-width: 1px;
   width: 100px;
   height: 100px;
@@ -240,12 +240,12 @@ button {
   border: 5px solid purple;
 }
 
-button:hover {
+button.guardadoLocal:hover {
   transform: scale(110%);
   transition: 0.5s;
 }
 
-button > span {
+button.guardadoLocal > span {
   font-size: 1.3em;
   font-weight: bold;
   color: purple;
@@ -265,7 +265,7 @@ button img {
   opacity: 0;
 }
 
-button:focus {
+button.guardadoLocal:focus {
   /*animation*/
   -webkit-animation: extend 1s ease-in-out;
   -ms-animation: extend 1s ease-in-out;
@@ -275,7 +275,7 @@ button:focus {
   animation-fill-mode: forwards;
 }
 
-button:focus > span {
+button.guardadoLocal:focus > span {
   /*animation*/
   -webkit-animation: disappear 1s ease-in-out;
   -ms-animation: disappear 1s ease-in-out;
@@ -285,7 +285,7 @@ button:focus > span {
   animation-fill-mode: forwards;
 }
 
-button:focus > img {
+button.guardadoLocal:focus > img {
   /*animation*/
   -webkit-animation: appear 1s ease-in-out;
   -ms-animation: appear 1s ease-in-out;
@@ -293,4 +293,13 @@ button:focus > img {
   -webkit-animation-fill-mode: forwards;
   /* Chrome, Safari, Opera */
   animation-fill-mode: forwards;
+}
+
+.comparador{
+  display: flex;
+  flex-direction: column;
+}
+
+.delete{
+  width: 100px;
 }
