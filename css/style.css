@@ -78,7 +78,7 @@ main p {
   text-align: center;
 }
 
-form {
+form, .comparador {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -157,11 +157,6 @@ td:first-child {
   font-weight: 900;
   text-transform: uppercase;
   text-align: left;
-}
-
-.comparador {
-  display: flex;
-  flex-direction: column;
 }
 
 .contenedorBotones {
