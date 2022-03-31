@@ -300,6 +300,10 @@ button.guardadoLocal:focus > img {
   flex-direction: column;
 }
 
-.delete{
+.contenedorBotones{
+  display: flex;
+}
+
+.delete, .compare{
   width: 100px;
 }

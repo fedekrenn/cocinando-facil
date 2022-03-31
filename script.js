@@ -16,6 +16,7 @@ class Recetas {
 
 //Arrays, son definidos con let y no con const ya que posteriormente se modifican(borrado para nueva carga)
 let dificultadRecetas = [];
+let recetasAComparar = [];
 let listadoDeRecetas = [];
 let nuevaReceta = {};
 
@@ -34,6 +35,7 @@ let divContenedorTablaRecetas = document.querySelector(".creadorCantidadRecetas"
 //Obtengo botones
 let guardadoLocal = document.querySelector(".guardadoLocal");
 let deleteButton = document.querySelector(".delete");
+let compareButton = document.querySelector(".compare");
 
 
 //Obtenemos la cantidad de ingredientes que quiere el usuario y ejecutamos la función
@@ -42,8 +44,9 @@ formulario.addEventListener("submit", enviarFormulario);
 guardadoLocal.addEventListener("click", enviarALocal);
 
 
-//Borrado de options en la sección de comparación
+//QUE PONGO ACÁAAA??
 deleteButton.addEventListener("click", removerComparacion);
+compareButton.addEventListener("click", comparando);
 
 //Cuando se carga la página llamo a la función que trae las recetas guardadas en el Local Storage
 window.onload = imprimirReceta(baseDeDatos);
@@ -146,6 +149,7 @@ function enviarALocal() {
 
     // Copio el array a uno nuevo ya que "listadoDeRecetas" será vaciado. Este array de copia es para posteriormente generar el calculador de dificultad.
     dificultadRecetas = [...listadoDeRecetas];
+    recetasAComparar = [...listadoDeRecetas];
     listadoDeRecetas = [];
 
     //Ejecuto la función que crea las opciones de lista para el comparador
@@ -186,8 +190,8 @@ function prueba() {
 
 
     for (let i = 0; i < dificultadRecetas.length; i++) {
-        cuerpoSelect1.innerHTML += `<option value="0">${dificultadRecetas[i].nombre}</option>`;
-        cuerpoSelect2.innerHTML += `<option value="0">${dificultadRecetas[i].nombre}</option>`;
+        cuerpoSelect1.innerHTML += `<option value="${dificultadRecetas[i].nombre}">${dificultadRecetas[i].nombre}</option>`;
+        cuerpoSelect2.innerHTML += `<option value="${dificultadRecetas[i].nombre}">${dificultadRecetas[i].nombre}</option>`;
     }
 
     dificultadRecetas = [];
@@ -197,19 +201,30 @@ function removerComparacion() {
 
     const cuerpoSelect1 = document.getElementById("primerComparador");
     const cuerpoSelect2 = document.getElementById("segundoComparador");
-    
+
     cuerpoSelect1.innerHTML = "";
     cuerpoSelect2.innerHTML = "";
 
 }
 
-
-
-
-//Función que compara la cantidad de ingredientes para determinar cuál receta es más complicada de cocinar, se usa el método .longitud() del objeto 
-function masDificilDeCocinar(primerReceta, segundaReceta) {
-    (primerReceta.longitud()) > (segundaReceta.longitud()) ? alert(`Cocinar ${primerReceta.nombre} es más difícil ya que lleva ${primerReceta.longitud()} ingredientes, en cambio ${segundaReceta.nombre} lleva sólamente ${segundaReceta.longitud()}`) : alert(`Cocinar ${segundaReceta.nombre} es más difícil ya que lleva ${segundaReceta.longitud()} ingredientes, en cambio ${primerReceta.nombre} lleva sólamente ${primerReceta.longitud()}`)
+function comparando(){
+    const receta1 = document.getElementById("primerComparador")
+    const receta2 = document.getElementById("segundoComparador")
+    
+    const uno = recetasAComparar.filter((receta) => receta.nombre == receta1.value);
+    const dos = recetasAComparar.filter((receta) => receta.nombre == receta2.value);
+    
+    //Función que compara la cantidad de ingredientes para determinar cuál receta es más complicada de cocinar, se usa el método .longitud() del objeto 
+    function masDificilDeCocinar(primerReceta, segundaReceta) {
+        (primerReceta.longitud()) > (segundaReceta.longitud()) ? alert(`Cocinar ${primerReceta.nombre} es más difícil ya que lleva ${primerReceta.longitud()} ingredientes, en cambio ${segundaReceta.nombre} lleva sólamente ${segundaReceta.longitud()}`) : alert(`Cocinar ${segundaReceta.nombre} es más difícil ya que lleva ${segundaReceta.longitud()} ingredientes, en cambio ${primerReceta.nombre} lleva sólamente ${primerReceta.longitud()}`)
+    }
+    
+    masDificilDeCocinar(uno[0], dos[0]);
 }
+
+
+
+
 
 
 // Creación de arrays de comidas vegetarianas, comidas rápidas y tiempo total para cocinar todas las recetas
