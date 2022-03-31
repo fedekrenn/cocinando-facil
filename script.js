@@ -8,9 +8,6 @@ class Recetas {
     longitud() {                                      // Método para conocer cantidad de ingredientes
         return (this.ingredientes).length;
     }
-    recetaConCarne() {                                // Método para saber si la receta tiene carne
-        return (this.ingredientes).some((val) => val == "carne" || val == "Carne");
-    }
 }
 
 
@@ -253,69 +250,3 @@ function comparandoRecetas() {
 
     masDificilDeCocinar($recetaUno[0], $recetaDos[0]);
 }
-
-
-
-
-
-
-// Creación de arrays de comidas vegetarianas, comidas rápidas y tiempo total para cocinar todas las recetas
-//const comidasVegetarianas = (listadoRecetas.filter((val) => val.recetaConCarne() == false)).map((el) => el.nombre);
-//const comidasRapidas = (listadoRecetas.filter((val) => val.tiempoDeCoccion <= 20)).map((el) => el.nombre);
-//const tiempoTotalDeCocina = (listadoDeRecetas.map((val) => val.tiempoDeCoccion)).reduce((acc, el) => acc + el, 0);
-
-
-
-
-
-
-// NUEVOOOOOO
-
-/*
-
-
-
-
-
-
-alert(`El tiempo total para cocinar todas esas recetas es de ${tiempoTotalDeCocina} minutos`);
-
-
-
-// Condicional para mostrar por alerta comidas vegetarianas y rápidas solo si el array contiene elementos
-(comidasVegetarianas.length != 0) $$ alert(`Las comidas aptas para vegetarianos son:\n${comidasVegetarianas.join(`\n`)}`);
-(comidasRapidas.length != 0) && alert(`Estas son las comidas más rápidas de cocinar:\n${comidasRapidas.join(`\n`)}`);
-
-
-
-
-// El código a continuación crea un listado de los nombres de las recetas y adicionalmente le agrega un contador 1 -, 2-, etc según cuantas recetas hay
-const contador = listadoRecetas.map((val) => val.nombre);
-const contadorConRecetas = [];
-
-for (let i = 0; i < contador.length; i++) {
-    contadorConRecetas[i] = `${i + 1} - ${contador[i]}`;
-}
-
-*/
-
-
-
-/*Lanzador de la función masDificilDeCocinar(), está dentro de un if, para que el usuario pueda elegir
-que recetas comparar en el caso de que haya 3 o más, en el caso de ser 2 recetas las compara automáticamente
-y en el caso que haya 1 o ninguna no efectua comparación
-*/
-
-/*
-if (dificultadRecetas.length >= 2) {
-    let comparacionReceta1 = listadoRecetas[(parseInt(prompt(`Ingrese el número de receta del 1 al ${cantidadDeseada}\n${contadorConRecetas.join("\n")}`)) - 1)];
-    let comparacionReceta2 = listadoRecetas[(parseInt(prompt(`Ahora ingresá otro número diferente al anterior, del 1 al ${cantidadDeseada}\n${contadorConRecetas.join("\n")}`)) - 1)];
-    masDificilDeCocinar(comparacionReceta1, comparacionReceta2);
-} else if (listadoRecetas.length == 2) {
-    alert(`Usted ha seleccionado ${cantidadDeseada} recetas, a continuación compararemos cuál es más difícil de cocinar en base a sus ingredientes`);
-    masDificilDeCocinar(listadoRecetas[0], listadoRecetas[1]);
-} else {
-    alert("No se ingresaron las suficientes recetas para realizar una comparación");
-}
-
-*/
