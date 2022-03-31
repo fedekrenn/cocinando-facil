@@ -26,8 +26,8 @@
     </header>
     <main id="mainContent">
         <h2>Armá tu propio recetario</h2>
-        <p>Te ofrecemos este espacio para que vos, chef, puedas cargar tus recetas y así poder sorprender a tus clientes
-            con los mejores sabores y experiencias</p>
+        <p>Te ofrecemos este espacio para que vos, <span>chef</span>, puedas cargar tus recetas y así poder sorprender a tus clientes
+            con los mejores sabores y experiencias.</p>
         <form id="formulario">
             <label for="nombreReceta">Ingresa el nombre de la receta</label>
             <input type="text" name="nombreReceta" id="nombreReceta" placeholder="Ej: Pizza" required>
@@ -66,12 +66,10 @@
 
             </tbody>
         </table>
-        <div class="cont">
-            <button class="btn guardadoLocal"><span>Guardar recetas</span><img
-                    src="https://i.cloudup.com/2ZAX3hVsBE-3000x3000.png"></button>
-        </div>
-        <div class="comparador">
+        <button class="btn guardadoLocal">Guardar recetas</button>
+        <form class="comparador">
             <h2>Compara qué receta es más fácil de cocinar según la cantidad de ingredientes</h2>
+            <p class="legend">¡Antes de comparar debes hacer click en el botón "GUARDAR RECETAS" de arriba!</p>
             <label for="primerComparador">Selecciona la 1° receta</label>
             <select name="" id="primerComparador">
 
@@ -80,15 +78,11 @@
             <select name="" id="segundoComparador">
 
             </select>
-            <div class="contenedorBotones">
-                <button class="compare">Comparar</button>
-                <button class="delete">Borrar</button>
-            </div>
-            <div class="resultadosComparador">
-
-            </div>
-        </div>
+            <button class="compare">Comparar</button>
+        </form>
     </main>
+    <!-- Sweet alerts -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Link JS -->
     <script src="./script.js"></script>
 </body>
