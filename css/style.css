@@ -9,6 +9,12 @@ body {
   background-color: rgb(245, 236, 224);
 }
 
+body.dark{
+  background-color: #343D5B;
+  color: white;
+  transition: .5s ease all;
+}
+
 header {
   min-height: 100vh;
   display: flex;
@@ -42,8 +48,10 @@ header i {
 }
 
 h1 {
+  color: black;
   text-align: center;
   padding: 20px;
+  font-size: 3.5em;
   font-family: "Poppins", sans-serif;
   background-color: hsla(0, 0%, 100%, 0.8);
   padding: 20px 30px;
@@ -52,6 +60,15 @@ h1 {
 h2 {
   text-align: center;
   margin: 70px;
+  font-size: 2.5em;
+}
+
+.comparador h2{
+  margin: 10px 0 60px 0;
+}
+
+body.dark h2{
+  color: rgb(243, 126, 243);
 }
 
 span{
@@ -60,11 +77,27 @@ span{
   font-style: italic;
 }
 
+body.dark span{
+  color: rgb(243, 126, 243);
+}
+
 i {
   color: purple;
 }
 
-i:hover {
+body.dark i{
+  color: rgb(243, 126, 243);
+}
+
+td{
+  border: 1px solid purple;
+}
+
+body.dark td{
+  border: 1px solid rgb(243, 126, 243);
+}
+
+tbody i:hover {
   color: purple;
   transition: 0.5s;
   box-shadow: 11px 10px 26px 0px rgba(0, 0, 0, 0.75);
@@ -92,7 +125,7 @@ select {
 }
 
 input[type="submit"],
-button {
+.guardadoLocal, .compare {
   display: block;
   margin: 20px auto;
   font-size: 15px;
@@ -103,19 +136,19 @@ button {
   border-radius: 6px;
   color: #ffffff;
   font-weight: bold;
-
   box-shadow: inset 0px 1px 0px 0px #e184f3;
   text-shadow: inset 0px 1px 0px #9b14b3;
   background: linear-gradient(#c123de, #a20dbd);
 }
 
 input[type="submit"]:hover,
-button:hover {
+.guardadoLocal:hover, .compare:hover {
   background: linear-gradient(#a20dbd, #c123de);
+  cursor: pointer;
 }
 
 input[type="submit"]:active,
-button:active {
+.guardadoLocal:active, .compare:active {
   background: #a20dbd;
 }
 
@@ -139,9 +172,18 @@ table {
   border-spacing: 0;
 }
 
+body.dark table{
+  border: 2px solid rgb(243, 126, 243);
+}
+
 thead {
   background-color: purple;
   color: white;
+}
+
+body.dark thead{
+  background-color: rgb(243, 126, 243);
+  color: black;
 }
 
 td {
@@ -168,4 +210,61 @@ td:first-child {
   font-weight: bold;
   font-style: italic;
   margin-bottom: 30px;
+}
+
+body.dark .legend{
+  color: rgb(243, 126, 243);
+}
+
+/* Botón de modo claro/oscuro */
+
+.switch{
+  background: #343D5B;
+  border-radius: 1000px;
+  border: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  cursor: pointer;
+  display: flex;
+  outline: none;
+  transition: .5s ease all;
+}
+
+.switch::after{
+  content: "";
+  display: block;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  background: #f1f1f1;
+  top: 0;
+  left: 0;
+  right: unset;
+  border-radius: 100px;
+  transition: .3s ease all;
+  box-shadow: 0px 0px 2px 2px rgba(0,0,0,.2);
+}
+
+.switch.active{
+  background: orange;
+  color: black;
+}
+
+.switch.active::after{
+  right: 0;
+  left: unset;
+}
+
+.switch span{
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  display: block;
+  background: none;
+  color: #fff;
+}
+
+.switch span i{
+  color: white;
 }

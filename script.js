@@ -18,11 +18,17 @@ let listadoDeRecetas = [];
 let nuevaReceta = {};
 
 
+
+
+
 // Obtengo lo almacenado en localStore de haber algun dato, uso el operador avanzado lógico OR para que cree el array en caso de no haber nada
 let baseDeDatos = JSON.parse(localStorage.getItem('recetas guardadas')) || [];
 
 // Cuando se carga la página llamo a la función que trae las recetas guardadas en el Local Storage
 window.onload = imprimirReceta(baseDeDatos);
+
+
+
 
 
 // Obtener Elementos del formulario y de la tabla
@@ -37,6 +43,7 @@ let divContenedorTablaRecetas = document.querySelector(".creadorCantidadRecetas"
 let guardadoLocal = document.querySelector(".guardadoLocal");
 let deleteButton = document.querySelector(".delete");
 let compareButton = document.querySelector(".compare");
+const botonSwitch = document.querySelector("#switch");
 
 
 // Ejecución de funciones según clicks o cambios del usuario
@@ -44,6 +51,20 @@ cantidadIngredientes.addEventListener("change", crearInputs);
 formulario.addEventListener("submit", enviarFormulario);
 guardadoLocal.addEventListener("click", enviarALocal);
 compareButton.addEventListener("click", comparandoRecetas);
+
+
+
+// Modo Oscuro
+botonSwitch.addEventListener("click", aplicarModoOscuro);
+
+// Recogemos del localStorage la información sobre activación o no del modo oscuro para la carga inicial de la web
+if (localStorage.getItem("dark-mode") === "true") {
+    document.body.classList.toggle("dark");
+    botonSwitch.classList.toggle("active");
+} else {
+    document.body.classList.remove("dark");
+    botonSwitch.classList.remove("active");
+}
 
 
 
@@ -127,13 +148,13 @@ function enviarALocal() {
 
         // Función que obtiene los ingredientes en forma string y los lista en un array
         function convertirEnArray() {
-            let obtenerIngredientes = ingredientes[i].outerText;
+            let obtenerIngredientes = ingredientes[i].textContent;
             let nuevoArrayIngredientes = obtenerIngredientes.split(", ");
             return nuevoArrayIngredientes;
         }
 
         // Tomando los elementos del html creo el listado de recetas que serán guardados en el localStorage
-        listadoDeRecetas.push(new Recetas(nombre[i].outerText, convertirEnArray(), parseInt(tiempo[i].outerText)));
+        listadoDeRecetas.push(new Recetas(nombre[i].textContent, convertirEnArray(), parseInt(tiempo[i].textContent)));
     }
 
     // Convierto en string y envio al localStorage
@@ -250,3 +271,16 @@ function comparandoRecetas() {
 
     masDificilDeCocinar($recetaUno[0], $recetaDos[0]);
 }
+
+function aplicarModoOscuro(){
+    
+    // Seteamos clases en el html
+    document.body.classList.toggle("dark");
+    botonSwitch.classList.toggle("active");
+
+    // Guardamos el modo en local storage
+    document.body.classList.contains("dark") ? localStorage.setItem("dark-mode", "true") : localStorage.setItem("dark-mode", "false");
+
+}
+
+
