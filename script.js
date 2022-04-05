@@ -30,7 +30,6 @@ window.onload = imprimirReceta(baseDeDatos);
 
 
 
-
 // Obtener Elementos del formulario y de la tabla
 let formulario = document.getElementById("formulario");
 let nombreReceta = document.getElementById("nombreReceta");
@@ -124,14 +123,6 @@ function enviarFormulario(e) {
 }
 
 
-// Se borra la fila (por ende el ingrediente) del producto que el usuario clickee
-function removerRecetaDeTabla(event) {
-
-    const botonApretado = event.target;
-    botonApretado.closest("tr").remove();
-}
-
-
 function enviarALocal() {
 
     // Aquí vacío el array, para evitar que si da muchas veces al boton "Guardar receta", se multipliquen valores
@@ -169,13 +160,15 @@ function enviarALocal() {
     // Ejecuto la función que crea las opciones de lista desplegable para el comparador
     generarSelectIngredientes();
 
+
+    // Alerta de carga correcta
     Swal.fire({
         position: 'top-end',
         icon: 'success',
         title: 'Las recetas se cargaron correctamente!',
         showConfirmButton: false,
         timer: 1500
-      })
+    })
 }
 
 
@@ -196,7 +189,31 @@ function imprimirReceta(array) {
         cuerpoTabla.appendChild(tabla);
 
         // Evento de borrado de receta en tabla, se declara en este scoope ya que se puede ejecutar luego de crear un elemento
-        tabla.querySelector(".botonBorrado").addEventListener("click", removerRecetaDeTabla);
+        tabla.querySelector(".botonBorrado").addEventListener("click", eliminarRecetaTabla);
+    }
+
+
+    // Función para borrar la fila (por ende el ingrediente) del producto que el usuario clickee
+    function eliminarRecetaTabla(event) {
+        Swal.fire({
+            title: 'Está seguro de eliminar la receta?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'No, me arrepentí'
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Receta Borrada!',
+                    icon: 'success',
+                    text: 'La receta ha sido borrada'
+                });
+                const botonApretado = event.target;
+                botonApretado.closest("tr").remove();
+            }
+        });
+        
     }
 
     // Reseteo el array, ya que si no cuando se da a guardar se crean muchas veces tablas con recetas repetidas
@@ -246,22 +263,22 @@ function comparandoRecetas() {
     const $recetaDos = recetasAComparar.filter((val) => val.nombre == receta2.value);
 
     //Mensaje de error si las recetas son iguales
-    function errorRecetasIguales(){
+    function errorRecetasIguales() {
         Swal.fire({
             title: 'Error!',
             text: 'Las recetas tienen que ser diferentes para poder compararse',
             icon: 'error',
             confirmButtonText: 'Reintentar'
-          })
+        })
     }
 
     //Notificación con el resultado de la comparación
-    function resultadoComparacion(uno, dos){
+    function resultadoComparacion(uno, dos) {
         Swal.fire({
             text: `Cocinar ${(uno.nombre).toLowerCase()} es más difícil ya que lleva ${uno.longitud()} ingredientes, en cambio ${(dos.nombre).toLowerCase()} lleva sólamente ${dos.longitud()}`,
             icon: 'success',
             confirmButtonText: 'Seguir comparando'
-          })
+        })
     }
 
     //Función que compara la cantidad de ingredientes para determinar cuál receta es más complicada de cocinar, se usa el método .longitud() del objeto 
@@ -272,8 +289,8 @@ function comparandoRecetas() {
     masDificilDeCocinar($recetaUno[0], $recetaDos[0]);
 }
 
-function aplicarModoOscuro(){
-    
+function aplicarModoOscuro() {
+
     // Seteamos clases en el html
     document.body.classList.toggle("dark");
     botonSwitch.classList.toggle("active");

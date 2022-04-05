@@ -85,7 +85,7 @@ i {
   color: purple;
 }
 
-body.dark i{
+body.dark main i{
   color: rgb(243, 126, 243);
 }
 
@@ -97,7 +97,7 @@ body.dark td{
   border: 1px solid rgb(243, 126, 243);
 }
 
-tbody i:hover {
+tbody i:hover, header i:hover {
   color: purple;
   transition: 0.5s;
   box-shadow: 11px 10px 26px 0px rgba(0, 0, 0, 0.75);
