@@ -262,16 +262,7 @@ function comparandoRecetas() {
     const $recetaUno = recetasAComparar.filter((val) => val.nombre == receta1.value);
     const $recetaDos = recetasAComparar.filter((val) => val.nombre == receta2.value);
 
-    //Mensaje de error si las recetas son iguales
-    function errorRecetasIguales() {
-        Swal.fire({
-            title: 'Error!',
-            text: 'Las recetas tienen que ser diferentes para poder compararse',
-            icon: 'error',
-            confirmButtonText: 'Reintentar'
-        })
-    }
-
+    
     //Notificación con el resultado de la comparación
     function resultadoComparacion(uno, dos) {
         Swal.fire({
@@ -283,11 +274,30 @@ function comparandoRecetas() {
 
     //Función que compara la cantidad de ingredientes para determinar cuál receta es más complicada de cocinar, se usa el método .longitud() del objeto 
     function masDificilDeCocinar(primerReceta, segundaReceta) {
-        primerReceta == segundaReceta ? errorRecetasIguales() : (primerReceta.longitud()) > (segundaReceta.longitud()) ? resultadoComparacion(primerReceta, segundaReceta) : resultadoComparacion(segundaReceta, primerReceta);
+        if (primerReceta == segundaReceta){
+            Swal.fire({
+                title: 'Error!',
+                text: 'Las recetas tienen que ser diferentes para poder compararse',
+                icon: 'error',
+                confirmButtonText: 'Reintentar'
+            });
+        } else if (primerReceta.longitud() == segundaReceta.longitud()){
+            Swal.fire({
+                text: 'Ya que ambas recetas tienen los mismos ingredientes, cocinarlas conllevan la misma dificultad',
+                icon: 'success',
+                confirmButtonText: 'Seguir comparando'
+            });
+        } else if ((primerReceta.longitud()) > (segundaReceta.longitud())){
+            resultadoComparacion(primerReceta, segundaReceta);
+        } else {
+            resultadoComparacion(segundaReceta, primerReceta);
+        }
     }
 
+    // Se llama a la función con los parámetros
     masDificilDeCocinar($recetaUno[0], $recetaDos[0]);
 }
+
 
 function aplicarModoOscuro() {
 

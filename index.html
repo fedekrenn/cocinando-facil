@@ -11,6 +11,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Raleway&display=swap" rel="stylesheet">
+    <!-- Animaciones -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <!-- CSS -->
     <link rel="stylesheet" href="./css/style.css">
     <!-- Favicon -->
@@ -21,14 +23,15 @@
 <body>
     <header>
         <img src="./assets/icons/logo-cocinando-facil.svg" alt="logo Cocinando Fácil">
-        <h1>Almacén de recetas</h1>
-        <a href="#mainContent"><i class="fa-solid fa-circle-arrow-down"></i></a>
+        <h1 data-aos="zoom-in">Almacén de recetas</h1>
+        <a href="#mainContent" data-aos="fade-up"><i class="fa-solid fa-circle-arrow-down"></i></a>
     </header>
     <main id="mainContent">
         <h2>Armá tu propio recetario</h2>
-        <p>Te ofrecemos este espacio para que vos, <span>Chef</span>, puedas cargar tus recetas y así poder sorprender a tus clientes
+        <p>Te ofrecemos este espacio para que vos, <span>Chef</span>, puedas cargar tus recetas y así poder sorprender a
+            tus clientes
             con los mejores sabores y experiencias.</p>
-        <form id="formulario">
+        <form id="formulario" data-aos="flip-left">
             <label for="nombreReceta">Ingresa el nombre de la receta</label>
             <input type="text" name="nombreReceta" id="nombreReceta" placeholder="Ej: Pizza" required>
             <label for="cantidadIngredientes">¿Cuantos ingredientes tiene?</label>
@@ -50,10 +53,10 @@
             </div>
             <label for="tiempoCocina">¿Cuantos minutos demora su preparación?</label>
             <input type="number" name="tiempoCocina" id="tiempoCocina" placeholder="Ej: 30" required>
-            <input type="submit" value="Cargar Receta">
+            <input type="submit" value="Cargar Receta" data-aos="zoom-in-up">
         </form>
 
-        <table>
+        <table data-aos="flip-left">
             <thead>
                 <tr>
                     <th>Receta</th>
@@ -66,7 +69,7 @@
 
             </tbody>
         </table>
-        <button class="btn guardadoLocal">Guardar recetas</button>
+        <button class="btn guardadoLocal" data-aos="zoom-in-up">Guardar recetas</button>
         <div class="comparador">
             <h2>Compará qué receta es más fácil de cocinar según la cantidad de ingredientes</h2>
             <p class="legend">¡Antes de comparar debes hacer click en el botón "GUARDAR RECETAS" de arriba!</p>
@@ -78,7 +81,7 @@
             <select name="" id="segundoComparador">
 
             </select>
-            <button class="compare">Comparar</button>
+            <button class="compare" data-aos="zoom-in-up">Comparar</button>
         </div>
     </main>
     <footer>
@@ -89,6 +92,11 @@
     </footer>
     <!-- Sweet alerts -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Animaciones -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
     <!-- Link JS -->
     <script src="./script.js"></script>
 </body>
