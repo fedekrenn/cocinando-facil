@@ -13,6 +13,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Raleway&display=swap" rel="stylesheet">
     <!-- Animaciones -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Toastify -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <!-- CSS -->
     <link rel="stylesheet" href="./css/style.css">
     <!-- Favicon -->
@@ -27,8 +29,8 @@
         <a href="#mainContent" data-aos="fade-up"><i class="fa-solid fa-circle-arrow-down"></i></a>
     </header>
     <main id="mainContent">
-        <h2>Armá tu propio recetario</h2>
-        <p>Te ofrecemos este espacio para que vos, <span>Chef</span>, puedas cargar tus recetas y así poder sorprender a
+        <h2>Armá tu propio recetario 📝</h2>
+        <p>Te ofrecemos este espacio para que vos, <span>Chef</span> 👨🏻‍🍳, puedas cargar tus recetas y así poder sorprender a
             tus clientes
             con los mejores sabores y experiencias.</p>
         <form id="formulario" data-aos="flip-left">
@@ -72,7 +74,7 @@
         <button class="btn guardadoLocal" data-aos="zoom-in-up">Guardar recetas</button>
         <div class="comparador">
             <h2>Compará qué receta es más fácil de cocinar según la cantidad de ingredientes</h2>
-            <p class="legend">¡Antes de comparar debes hacer click en el botón "GUARDAR RECETAS" de arriba!</p>
+            <p class="legend">¡Antes de comparar debes hacer click en el botón "GUARDAR RECETAS" 💾 de arriba!</p>
             <label for="primerComparador">Selecciona la 1° receta</label>
             <select name="" id="primerComparador">
 
@@ -83,6 +85,20 @@
             </select>
             <button class="compare" data-aos="zoom-in-up">Comparar</button>
         </div>
+        <div class="filterConteiner">
+            <div class="comidasVegetarianas">
+                <h3>Estas son las comidas aptas para vegetarianos 🥑🥕🥗</h3>
+                <ul id="comidasVegetarianas">
+
+                </ul>
+            </div>
+            <div class="comidasRapidas">
+                <h3>¿Estás apurado? Estas son comidas que puedes hacer en menos de 15 minutos ⏲️⏳⏱️</h3>
+                <ul id="comidasRapidas">
+
+                </ul>
+            </div>
+        </div>
     </main>
     <footer>
         <button class="switch" id="switch">
@@ -92,6 +108,8 @@
     </footer>
     <!-- Sweet alerts -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Toastify -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <!-- Animaciones -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>

@@ -63,16 +63,20 @@ h2 {
   font-size: 2.5em;
 }
 
+h3{
+  font-size: 1.5rem;
+}
+
 .comparador h2{
   margin: 10px 0 60px 0;
 }
 
-body.dark h2{
-  color: rgb(243, 126, 243);
+body.dark h2, body.dark h3{
+  color: #f37ef3;
 }
 
 span{
-  color: purple;
+  color: #800080;
   font-weight: bold;
   font-style: italic;
 }
@@ -98,8 +102,9 @@ body.dark td{
 }
 
 tbody i:hover, header i:hover {
-  color: purple;
+  color: #c948c9;
   transition: 0.5s;
+  transform: scale(1.5);
   box-shadow: 11px 10px 26px 0px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 7px 7px 10px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 7px 7px 10px 0px rgba(0, 0, 0, 0.75);
@@ -215,6 +220,35 @@ td:first-child {
 body.dark .legend{
   color: rgb(243, 126, 243);
 }
+
+.filterConteiner{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.comidasVegetarianas, .comidasRapidas{
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+ul{
+  margin: 30px;
+  padding-left: 2rem;
+  list-style-type: none;
+}
+
+ul li {
+  padding-left: 2rem;
+  background-image: url(../assets/icons/cookie-bite-solid.svg);
+  background-position: 0 0;
+  background-size: 1.2rem 1.2rem;
+  background-repeat: no-repeat;
+}
+
 
 /* Botón de modo claro/oscuro */
 

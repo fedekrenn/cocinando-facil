@@ -8,6 +8,9 @@ class Recetas {
     longitud() {                                      // Método para conocer cantidad de ingredientes
         return (this.ingredientes).length;
     }
+    recetaConCarne() {                                // Método para saber si la receta tiene carne
+        return (this.ingredientes).some((val) => val == "carne" || val == "Carne" || val == "pollo" || val == "pescado" || val == "jamon");
+    }
 }
 
 
@@ -47,6 +50,15 @@ const botonSwitch = document.querySelector("#switch");
 
 // Ejecución de funciones según clicks o cambios del usuario
 cantidadIngredientes.addEventListener("change", crearInputs);
+cantidadIngredientes.addEventListener("blur", () => {
+    Toastify({
+        text: "Si la receta lleva carne, no olvides cargarla",
+        duration: 3000,
+        style: {
+            background: "linear-gradient(to right, #800080, #f37ef3)",
+          },
+        }).showToast();
+})
 formulario.addEventListener("submit", enviarFormulario);
 guardadoLocal.addEventListener("click", enviarALocal);
 compareButton.addEventListener("click", comparandoRecetas);
@@ -213,7 +225,7 @@ function imprimirReceta(array) {
                 botonApretado.closest("tr").remove();
             }
         });
-        
+
     }
 
     // Reseteo el array, ya que si no cuando se da a guardar se crean muchas veces tablas con recetas repetidas
@@ -225,7 +237,7 @@ function generarSelectIngredientes() {
     // Borro lo previamente cargado para que cuando se apriete el botón no haya opciones duplicadas
     removerComparacion();
 
-    // Obtengo del dom la etiqueta select
+    // Obtengo del dom los valores de la etiqueta select
     const cuerpoSelect1 = document.getElementById("primerComparador");
     const cuerpoSelect2 = document.getElementById("segundoComparador");
 
@@ -233,6 +245,29 @@ function generarSelectIngredientes() {
     for (let i = 0; i < dificultadRecetas.length; i++) {
         cuerpoSelect1.innerHTML += `<option value="${dificultadRecetas[i].nombre}">${dificultadRecetas[i].nombre}</option>`;
         cuerpoSelect2.innerHTML += `<option value="${dificultadRecetas[i].nombre}">${dificultadRecetas[i].nombre}</option>`;
+    }
+
+
+    /* COMIDAS VEGETARIANAS Y RÁPIDAS */
+    // Creación de arrays de comidas vegetarianas y otro para comidas rápidas usando métodos para que sólo se sumen las que yo quiero
+    const comidasVegetarianas = (dificultadRecetas.filter((val) => val.recetaConCarne() == false)).map((el) => el.nombre);
+    const comidasRapidas = (dificultadRecetas.filter((val) => val.tiempoDeCoccion <= 15)).map((el) => el.nombre);
+    
+    // Obtengo del DOM los div donde los ubicaré
+    const cuerpoComidasVegetarianas = document.getElementById("comidasVegetarianas");
+    const cuerpoComidasRapidas = document.getElementById("comidasRapidas");
+
+    // Reseteo lo que ya existe
+    cuerpoComidasVegetarianas.innerHTML = "";
+    cuerpoComidasRapidas.innerHTML = "";
+
+    // Aplico el <li> de cada receta
+    for (const receta of comidasVegetarianas) {
+        cuerpoComidasVegetarianas.innerHTML += `<li>${receta}</li>`
+    }
+
+    for (const receta of comidasRapidas) {
+        cuerpoComidasRapidas.innerHTML += `<li>${receta}</li>`
     }
 
     // Vacío el array para evitar duplicaciones
@@ -262,8 +297,28 @@ function comparandoRecetas() {
     const $recetaUno = recetasAComparar.filter((val) => val.nombre == receta1.value);
     const $recetaDos = recetasAComparar.filter((val) => val.nombre == receta2.value);
 
+    //Comparación de la cantidad de ingredientes para determinar cuál receta es más complicada de cocinar, se usa el método .longitud() del objeto 
+    if ($recetaUno[0] == $recetaDos[0]) {
+        Swal.fire({
+            title: 'Error!',
+            text: 'Las recetas tienen que ser diferentes para poder compararse',
+            icon: 'error',
+            confirmButtonText: 'Reintentar'
+        });
+    } else if ($recetaUno[0].longitud() == $recetaDos[0].longitud()) {
+        Swal.fire({
+            text: 'Ya que ambas recetas tienen la misma cantidad de ingredientes, cocinarlas conllevan la misma dificultad',
+            icon: 'success',
+            confirmButtonText: 'Seguir comparando'
+        });
+    } else if (($recetaUno[0].longitud()) > ($recetaDos[0].longitud())) {
+        resultadoComparacion($recetaUno[0], $recetaDos[0]);
+    } else {
+        resultadoComparacion($recetaDos[0], $recetaUno[0]);
+    }
     
-    //Notificación con el resultado de la comparación
+    
+    //Función para la notificación con el resultado de la comparación
     function resultadoComparacion(uno, dos) {
         Swal.fire({
             text: `Cocinar ${(uno.nombre).toLowerCase()} es más difícil ya que lleva ${uno.longitud()} ingredientes, en cambio ${(dos.nombre).toLowerCase()} lleva sólamente ${dos.longitud()}`,
@@ -271,31 +326,6 @@ function comparandoRecetas() {
             confirmButtonText: 'Seguir comparando'
         })
     }
-
-    //Función que compara la cantidad de ingredientes para determinar cuál receta es más complicada de cocinar, se usa el método .longitud() del objeto 
-    function masDificilDeCocinar(primerReceta, segundaReceta) {
-        if (primerReceta == segundaReceta){
-            Swal.fire({
-                title: 'Error!',
-                text: 'Las recetas tienen que ser diferentes para poder compararse',
-                icon: 'error',
-                confirmButtonText: 'Reintentar'
-            });
-        } else if (primerReceta.longitud() == segundaReceta.longitud()){
-            Swal.fire({
-                text: 'Ya que ambas recetas tienen los mismos ingredientes, cocinarlas conllevan la misma dificultad',
-                icon: 'success',
-                confirmButtonText: 'Seguir comparando'
-            });
-        } else if ((primerReceta.longitud()) > (segundaReceta.longitud())){
-            resultadoComparacion(primerReceta, segundaReceta);
-        } else {
-            resultadoComparacion(segundaReceta, primerReceta);
-        }
-    }
-
-    // Se llama a la función con los parámetros
-    masDificilDeCocinar($recetaUno[0], $recetaDos[0]);
 }
 
 
@@ -305,9 +335,26 @@ function aplicarModoOscuro() {
     document.body.classList.toggle("dark");
     botonSwitch.classList.toggle("active");
 
-    // Guardamos el modo en local storage
+    // Guardamos el modo en local storage con un ternario
     document.body.classList.contains("dark") ? localStorage.setItem("dark-mode", "true") : localStorage.setItem("dark-mode", "false");
 
 }
+
+
+// NUEVOOOOO
+
+
+
+
+
+
+// Condicional para mostrar por alerta comidas vegetarianas y rápidas solo si el array contiene elementos
+// (comidasVegetarianas.length != 0) && alert(`Las comidas aptas para vegetarianos son:\n${comidasVegetarianas.join(`\n`)}`);
+// (comidasRapidas.length != 0) && alert(`Estas son las comidas más rápidas de cocinar:\n${comidasRapidas.join(`\n`)}`);
+
+
+
+
+
 
 
