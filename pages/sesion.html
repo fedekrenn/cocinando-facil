@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Iconos -->
+    <script defer src="https://kit.fontawesome.com/94c0117dd6.js" crossorigin="anonymous"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Raleway&display=swap" rel="stylesheet">
+    <!-- Animaciones -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Toastify -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../assets/icons/favicon.svg" type="image/x-icon">
+    <title>Cocinando Fácil | Web para armar tu receta</title>
+</head>
+
+<body>
+    <header>
+        <img src="../assets/icons/logo-cocinando-facil.svg" alt="logo Cocinando Fácil">
+        <h1 data-aos="zoom-in">Almacén de recetas</h1>
+        <a href="#mainContent" data-aos="fade-up"><i class="fa-solid fa-circle-arrow-down"></i></a>
+    </header>
+    <main id="mainContent">
+        <h2>Armá tu propio recetario 📝</h2>
+        <p>Te ofrecemos este espacio para que vos, <span>Chef</span> 👨🏻‍🍳, puedas cargar tus recetas y así poder sorprender a
+            tus clientes
+            con los mejores sabores y experiencias.</p>
+        <form id="formulario" data-aos="flip-left">
+            <label for="nombreReceta">Ingresa el nombre de la receta</label>
+            <input type="text" name="nombreReceta" id="nombreReceta" placeholder="Ej: Pizza" required>
+            <label for="cantidadIngredientes">¿Cuantos ingredientes tiene?</label>
+            <select name="cantidadIngredientes" id="cantidadIngredientes" required>
+                <option value="eleccion">Elige una opción</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+            <div class="creadorCantidadRecetas">
+
+            </div>
+            <label for="tiempoCocina">¿Cuantos minutos demora su preparación?</label>
+            <input type="number" name="tiempoCocina" id="tiempoCocina" placeholder="Ej: 30" required>
+            <input type="submit" value="Cargar Receta" data-aos="zoom-in-up">
+        </form>
+
+        <table data-aos="flip-left">
+            <thead>
+                <tr>
+                    <th>Receta</th>
+                    <th>Ingredientes</th>
+                    <th>Tiempo de preparación (minutos)</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody class="tbody">
+
+            </tbody>
+        </table>
+        <button class="btn guardadoLocal" data-aos="zoom-in-up">Guardar recetas</button>
+        <div class="comparador">
+            <h2>Compará qué receta es más fácil de cocinar según la cantidad de ingredientes</h2>
+            <p class="legend">¡Antes de comparar debes hacer click en el botón "GUARDAR RECETAS" 💾 de arriba!</p>
+            <label for="primerComparador">Selecciona la 1° receta</label>
+            <select name="" id="primerComparador">
+
+            </select>
+            <label for="segundoComparador">Selecciona la 2° receta</label>
+            <select name="" id="segundoComparador">
+
+            </select>
+            <button class="compare" data-aos="zoom-in-up">Comparar</button>
+        </div>
+        <div class="filterConteiner">
+            <div class="comidasVegetarianas">
+                <h3>Estas son las comidas aptas para vegetarianos 🥑🥕🥗</h3>
+                <ul id="comidasVegetarianas">
+
+                </ul>
+            </div>
+            <div class="comidasRapidas">
+                <h3>¿Estás apurado? Estas son comidas que puedes hacer en menos de 15 minutos ⏲️⏳⏱️</h3>
+                <ul id="comidasRapidas">
+
+                </ul>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <button class="switch" id="switch">
+            <span><i class="fa-solid fa-sun"></i></span>
+            <span><i class="fa-solid fa-moon"></i></span>
+        </button>
+    </footer>
+    <!-- Sweet alerts -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Toastify -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!-- Animaciones -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    <!-- Link JS -->
+    <script src="../script.js"></script>
+</body>
+
+</html>
