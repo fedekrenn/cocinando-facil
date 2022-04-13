@@ -23,10 +23,11 @@
     <title>Cocinando Fácil | Web para armar tu receta</title>
 </head>
 
-<body>
+<body class="paginaRecetario">
     <header>
         <img src="../assets/icons/logo-cocinando-facil.svg" alt="logo Cocinando Fácil">
         <h1 data-aos="zoom-in">Almacén de recetas</h1>
+        <a href="../index.html" class="cerrarSesion">Cerrar sesión</a>
         <a href="#mainContent" data-aos="fade-up"><i class="fa-solid fa-circle-arrow-down"></i></a>
     </header>
     <main id="mainContent">
@@ -56,10 +57,10 @@
             </div>
             <label for="tiempoCocina">¿Cuantos minutos demora su preparación?</label>
             <input type="number" name="tiempoCocina" id="tiempoCocina" placeholder="Ej: 30" required>
-            <input type="submit" value="Cargar Receta" data-aos="zoom-in-up">
+            <input type="submit" value="Añadir Receta" data-aos="zoom-in-up">
         </form>
 
-        <table data-aos="flip-left">
+        <table>
             <thead>
                 <tr>
                     <th>Receta</th>

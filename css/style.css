@@ -33,7 +33,7 @@ header img {
   left: 10px;
 }
 
-header a {
+.paginaRecetario header a {
   position: relative;
   bottom: -100px;
   background-color: black;
@@ -132,7 +132,7 @@ select {
 }
 
 input[type="submit"],
-.guardadoLocal, .compare {
+.guardadoLocal, .compare, #formularioAcceso button, #formularioRegistro button{
   display: block;
   margin: 20px auto;
   font-size: 15px;
@@ -303,4 +303,64 @@ ul li {
 
 .switch span i{
   color: white;
+}
+
+/* Pages de loguin y creación cuenta */
+
+.index form, .createAccount form{
+  color: white;
+  background-color: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  width: 30%;
+  min-width: 250px;
+  height: 60vh;
+  border-radius: 20px;
+
+}
+
+.index input, .createAccount input{
+  width: 200px;
+}
+
+.index a, .createAccount a{
+  color: rgb(243, 126, 243);
+  margin-top: 30px;
+  font-weight: bold;
+  transition: .5s;
+}
+
+.index a:hover, .createAccount a:hover{
+  font-style: italic;
+  transform: scale(1.1);
+}
+
+#formularioAcceso button, #formularioRegistro button{
+  width: auto;
+  height: auto;
+  padding: 10px;
+}
+
+/* Cerrar Sesión */
+
+.paginaRecetario header .cerrarSesion{
+  position: absolute;
+  color: purple;
+  top: 10px;
+  right: 10px;
+  bottom: initial;
+  text-decoration: none;
+  background-color: #F5ECE0;
+  border: 1px solid purple;
+  border-radius: 5px;
+  padding: 5px 20px;
+  margin: 10px;
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
+.paginaRecetario header .cerrarSesion:hover{
+  color: rgb(243, 126, 243);
+  border: 1px solid rgb(243, 126, 243);
+  transform: scale(1.1);
+  transition: .5s;
 }

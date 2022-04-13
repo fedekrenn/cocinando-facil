@@ -177,7 +177,7 @@ function enviarALocal() {
     Swal.fire({
         position: 'top-end',
         icon: 'success',
-        title: 'Las recetas se cargaron correctamente!',
+        title: 'Las recetas se guardaron correctamente!',
         showConfirmButton: false,
         timer: 1500
     })

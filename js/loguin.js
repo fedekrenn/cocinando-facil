@@ -3,8 +3,8 @@ let formularioAcceso = document.getElementById("formularioAcceso");
 let formularioRegistro = document.getElementById("formularioRegistro");
 
 
-// Creación de array con todos los usuarios que se van creando
-let usuariosRegistrados = [];
+// Obtengo del localStorage si existen usuarios creados previamente, si no inicializo el array
+let usuariosRegistrados = JSON.parse(localStorage.getItem('username')) || [];
 
 
 //Se usa el operador AND para comprobar que no haya error por null al traer los form (ya que son 2 html distintos)
@@ -15,23 +15,28 @@ formularioRegistro != null && formularioRegistro.addEventListener("submit", crea
 
 
 
-
+// Función para crear la cuenta
 function crearCuenta(e) {
     e.preventDefault();
 
+    // Obtengo los valores que ingresa el usuario
     let nombreDeUsuario = document.getElementById("username");
     let email = document.getElementById("email");
     let pass = document.getElementById("password");
 
+    // Creo el objeto y lo pusheo al array
     let user = {
         email: email.value,
         nombreDeUsuario: nombreDeUsuario.value,
         pass: pass.value
     }
     usuariosRegistrados.push(user);
-  
+
+    // Envio al local
     let json = JSON.stringify(usuariosRegistrados);
     localStorage.setItem("username", json);
+
+    // Notifico creación ok
     Swal.fire({
         position: 'top-end',
         icon: 'success',
@@ -40,21 +45,27 @@ function crearCuenta(e) {
         timer: 1500
     });
 
+    // Reseteo los valores
     nombreDeUsuario.value = "";
     email.value = "";
     pass.value ="";
+
+    // Pongo un delay de 2 segundos y envío al idex para que se loguee
+    setTimeout(() =>{
+        window.location = '../index.html';
+    },2000);
 }
 
+
+// Función para loguearse con cuenta ya existente
 function loguearse(e) {
     e.preventDefault();
 
+    // Obtengo los valores que ingresa el usuario
     let nombreDeUsuario = document.getElementById("username").value;
     let pass = document.getElementById("password").value;
 
-    let user = localStorage.getItem("username");
-    let datos = JSON.parse(user);
-
-    if (user == null) {
+    if (usuariosRegistrados == []) {
         Swal.fire({
             position: 'center',
             icon: 'error',
@@ -62,7 +73,7 @@ function loguearse(e) {
             confirmButtonText: 'Reintentar',
             timer: 1500
         });
-    } else if (datos.some((val) => val.nombreDeUsuario == nombreDeUsuario) && datos.some((val) => val.pass == pass)) {
+    } else if (usuariosRegistrados.some((val) => val.nombreDeUsuario == nombreDeUsuario && val.pass == pass)) {
         window.location = 'pages/sesion.html'
     } else {
         Swal.fire({
