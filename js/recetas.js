@@ -39,6 +39,8 @@ let nombreReceta = document.getElementById("nombreReceta");
 let cantidadIngredientes = document.getElementById("cantidadIngredientes");
 let tiempoReceta = document.getElementById("tiempoCocina");
 let divContenedorTablaRecetas = document.querySelector(".creadorCantidadRecetas");
+const itemReceta = document.getElementById("itemReceta");
+
 
 
 // Obtengo botones
@@ -46,6 +48,7 @@ let guardadoLocal = document.querySelector(".guardadoLocal");
 let deleteButton = document.querySelector(".delete");
 let compareButton = document.querySelector(".compare");
 const botonSwitch = document.querySelector("#switch");
+const botonDeBusqueda = document.querySelector("#search-btn");
 
 
 // Ejecución de funciones según clicks o cambios del usuario
@@ -62,7 +65,7 @@ cantidadIngredientes.addEventListener("blur", () => {
 formulario.addEventListener("submit", enviarFormulario);
 guardadoLocal.addEventListener("click", enviarALocal);
 compareButton.addEventListener("click", comparandoRecetas);
-
+botonDeBusqueda.addEventListener("click", obtenerRecetas);
 
 
 // Modo Oscuro
@@ -340,6 +343,13 @@ function aplicarModoOscuro() {
 
 }
 
+
+async function obtenerRecetas(){
+    let textoBusqueda = document.getElementById("buscadorRecetas").value.trim();
+    let prueba = await fetch(`https://api.edamam.com/search?q=${textoBusqueda}&app_id=3f9e6bb6&app_key=f5c476faed9ba3c9819e87e79f9e90e0`);
+    const datos = await prueba.json();
+    console.log(datos);
+}
 
 // NUEVOOOOO
 

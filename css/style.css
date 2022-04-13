@@ -364,3 +364,33 @@ ul li {
   transform: scale(1.1);
   transition: .5s;
 }
+
+/* Sección de busqueda por API */
+
+.resultadoContainer{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly
+}
+
+.itemReceta{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px -12px rgba(0, 0, 0, 0.7);
+  margin: 1rem;
+  width: 30%;
+  min-width: 300px;
+}
+
+.itemReceta img{
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.itemReceta h3, .itemReceta h4{
+  margin: 20px;
+}
