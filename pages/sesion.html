@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Raleway&display=swap" rel="stylesheet">
     <!-- Animaciones -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <!-- Toastify -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <!-- CSS -->
@@ -74,7 +75,7 @@
         <button class="btn guardadoLocal" data-aos="zoom-in-up">Guardar recetas</button>
         <div class="comparador">
             <h2>Compará qué receta es más fácil de cocinar según la cantidad de ingredientes</h2>
-            <p class="legend">¡Antes de comparar debes hacer click en el botón "GUARDAR RECETAS" 💾 de arriba!</p>
+            <p class="legend animate__animated animate__headShake animate__infinite">¡Antes de comparar debes hacer click en el botón "GUARDAR RECETAS" 💾 de arriba!</p>
             <label for="primerComparador">Selecciona la 1° receta</label>
             <select name="" id="primerComparador">
 
@@ -86,6 +87,7 @@
             <button class="compare" data-aos="zoom-in-up">Comparar</button>
         </div>
         <div class="filterConteiner">
+            <p class="legend animate__animated animate__headShake animate__infinite">¡No olvides clickear "GUARDAR RECETAS" 💾!</p>
             <div class="comidasVegetarianas">
                 <h3>Estas son las comidas aptas para vegetarianos 🥑🥕🥗</h3>
                 <ul id="comidasVegetarianas">
@@ -116,7 +118,7 @@
         AOS.init();
     </script>
     <!-- Link JS -->
-    <script src="../script.js"></script>
+    <script src="../js/recetas.js"></script>
 </body>
 
 </html>
