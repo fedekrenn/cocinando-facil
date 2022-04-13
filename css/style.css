@@ -5,6 +5,7 @@
   font-family: "Raleway", sans-serif;
 }
 
+
 body {
   background-color: rgb(245, 236, 224);
 }
@@ -383,12 +384,24 @@ ul li {
   margin: 1rem;
   width: 30%;
   min-width: 300px;
+  height: 800px;
 }
 
 .itemReceta img{
   width: 100%;
   display: block;
   object-fit: cover;
+}
+
+.itemReceta p{
+  padding: 1rem;
+  overflow-y: scroll;
+  scrollbar-width: 0;
+
+}
+
+.itemReceta p::-webkit-scrollbar {
+  display: none;
 }
 
 .itemReceta h3, .itemReceta h4{
