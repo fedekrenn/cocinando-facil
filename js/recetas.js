@@ -9,7 +9,8 @@ class Recetas {
         return (this.ingredientes).length;
     }
     recetaConCarne() {                                // Método para saber si la receta tiene carne
-        return (this.ingredientes).some((val) => val == "carne" || val == "Carne" || val == "pollo" || val == "pescado" || val == "jamon");
+        let listaDeCarne = ["carne", "pollo", "pescado", "jamon", "salchicha"];
+        return (this.ingredientes).some((val) => listaDeCarne.includes(val.toLowerCase()));
     }
 }
 
@@ -59,8 +60,8 @@ cantidadIngredientes.addEventListener("blur", () => {
         duration: 3000,
         style: {
             background: "linear-gradient(to right, #800080, #f37ef3)",
-          },
-        }).showToast();
+        },
+    }).showToast();
 })
 formulario.addEventListener("submit", enviarFormulario);
 guardadoLocal.addEventListener("click", enviarALocal);
@@ -255,7 +256,7 @@ function generarSelectIngredientes() {
     // Creación de arrays de comidas vegetarianas y otro para comidas rápidas usando métodos para que sólo se sumen las que yo quiero
     const comidasVegetarianas = (dificultadRecetas.filter((val) => val.recetaConCarne() == false)).map((el) => el.nombre);
     const comidasRapidas = (dificultadRecetas.filter((val) => val.tiempoDeCoccion <= 15)).map((el) => el.nombre);
-    
+
     // Obtengo del DOM los div donde los ubicaré
     const cuerpoComidasVegetarianas = document.getElementById("comidasVegetarianas");
     const cuerpoComidasRapidas = document.getElementById("comidasRapidas");
@@ -319,8 +320,8 @@ function comparandoRecetas() {
     } else {
         resultadoComparacion($recetaDos[0], $recetaUno[0]);
     }
-    
-    
+
+
     //Función para la notificación con el resultado de la comparación
     function resultadoComparacion(uno, dos) {
         Swal.fire({
@@ -344,32 +345,37 @@ function aplicarModoOscuro() {
 }
 
 
-async function obtenerRecetas(){
-    let textoBusqueda = document.getElementById("buscadorRecetas").value.trim();
-    let datosObtenidos = await fetch(`https://api.edamam.com/search?q=${textoBusqueda}&app_id=3f9e6bb6&app_key=f5c476faed9ba3c9819e87e79f9e90e0`);
-    const datos = await datosObtenidos.json();
-    let html = "";
+async function obtenerRecetas() {
     
+    //Obtengo lo que el usuario desea buscar
+    let textoBusqueda = document.getElementById("buscadorRecetas").value.trim();
 
-    datos.hits.forEach((receta) => {
-        let ingreeeedientes = [];
-        receta.recipe.ingredients.forEach((ing) =>{
-            ingreeeedientes.push(ing.text);
-        })
+    //Llamo a la api de recetas "Edaman" y almaceno la info en la constante datosObtenidos
+    let llamadoApi = await fetch(`https://api.edamam.com/search?q=${textoBusqueda}&app_id=3f9e6bb6&app_key=f5c476faed9ba3c9819e87e79f9e90e0`);
+    const datosObtenidos = await llamadoApi.json();
+    let html = "";
+
+    // Ciclo que por cada receta que encontró en la Api imprime en el DOM la card con c/u.
+    for (const receta of datosObtenidos.hits) {
+        
+        // Creo una lista de ingredientes
+        let listaIngredientesApi = [];
+        // Dentro de cada receta en la api hay arrays con ingredientes pero que son objetos con más propiedades internas, por lo que lo pusheo a mi lista sólo los nombres
+        receta.recipe.ingredients.forEach((ing) => listaIngredientesApi.push(ing.text));
+        
+        // Aplico al html lo generado
         html += `
             <div class="itemReceta">
-            <img src="${receta.recipe.image}" alt="comida">
-            <h3>${receta.recipe.label}</h3>
-            <h4>Ingredientes:</h4>
-            <p>${ingreeeedientes.join("<br><br>")}</p>
+                <img src="${receta.recipe.image}" alt="comida">
+                <h3>${receta.recipe.label}</h3>
+                <h4>Ingredientes:</h4>
+                <p>${listaIngredientesApi.join("<br><br>")}</p>
             </div>`;
-    });
+    }
     resultadoContainer.innerHTML = html;
 }
 
 // NUEVOOOOO
-
-
 
 
 
