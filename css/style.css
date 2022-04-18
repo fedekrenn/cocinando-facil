@@ -70,6 +70,11 @@ h3{
   font-size: 1.5rem;
 }
 
+hr{
+  width: 80vw;
+  margin: 0 auto;
+}
+
 .comparador h2{
   margin: 10px 0 60px 0;
 }
@@ -371,6 +376,7 @@ ul li {
 .resultadoContainer{
   display: flex;
   flex-wrap: wrap;
+  min-height: 40vh;
   justify-content: space-evenly
 }
 
@@ -381,10 +387,11 @@ ul li {
   overflow: hidden;
   border-radius: 20px;
   box-shadow: 0 10px 25px -12px rgba(0, 0, 0, 0.7);
-  margin: 1rem;
+  margin: 1.5rem 1rem;
   width: 30%;
   min-width: 300px;
   height: 800px;
+  transition: .5s;
 }
 
 .itemReceta img{
@@ -406,4 +413,28 @@ ul li {
 
 .itemReceta h3, .itemReceta h4{
   margin: 20px;
+}
+
+.itemReceta:hover{
+  transform: scale(1.1);
+}
+
+.recetaApi{
+  display: flex;
+  flex-direction: column;
+  align-items: center
+}
+
+.buscadorRecetas{
+  width: 300px;
+  height: 40px;
+  font-size: 1.6rem;
+}
+
+#search-btn{
+  padding: 5px;
+}
+
+.fa-search{
+  font-size: 1.6rem;
 }

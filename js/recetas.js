@@ -265,14 +265,9 @@ function generarSelectIngredientes() {
     cuerpoComidasVegetarianas.innerHTML = "";
     cuerpoComidasRapidas.innerHTML = "";
 
-    // Aplico el <li> de cada receta
-    for (const receta of comidasVegetarianas) {
-        cuerpoComidasVegetarianas.innerHTML += `<li>${receta}</li>`
-    }
-
-    for (const receta of comidasRapidas) {
-        cuerpoComidasRapidas.innerHTML += `<li>${receta}</li>`
-    }
+    // Aplico el <li> de cada receta, con un operador ternario que verifica que haya recetas en los array
+    comidasVegetarianas.length != 0 ? comidasVegetarianas.forEach((receta) => cuerpoComidasVegetarianas.innerHTML += `<li>${receta}</li>`) : cuerpoComidasVegetarianas.innerHTML = "No hay comidas aptas para vegetarianos";
+    comidasRapidas.length != 0 ? comidasRapidas.forEach((receta) => cuerpoComidasRapidas.innerHTML += `<li>${receta}</li>`) : cuerpoComidasRapidas.innerHTML = "No hay comidas rápidas de cocinar";
 
     // Vacío el array para evitar duplicaciones
     dificultadRecetas = [];
@@ -374,19 +369,3 @@ async function obtenerRecetas() {
     }
     resultadoContainer.innerHTML = html;
 }
-
-// NUEVOOOOO
-
-
-
-
-// Condicional para mostrar por alerta comidas vegetarianas y rápidas solo si el array contiene elementos
-// (comidasVegetarianas.length != 0) && alert(`Las comidas aptas para vegetarianos son:\n${comidasVegetarianas.join(`\n`)}`);
-// (comidasRapidas.length != 0) && alert(`Estas son las comidas más rápidas de cocinar:\n${comidasRapidas.join(`\n`)}`);
-
-
-
-
-
-
-
