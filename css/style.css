@@ -3,14 +3,14 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Raleway", sans-serif;
+  scroll-behavior: smooth;
 }
-
 
 body {
   background-color: rgb(245, 236, 224);
 }
 
-body.dark{
+body.dark {
   background-color: #343D5B;
   color: white;
   transition: .5s ease all;
@@ -65,31 +65,36 @@ h2 {
   font-size: 2.5em;
 }
 
-h3{
+h3 {
   font-family: "Poppins", sans-serif;
   font-size: 1.5rem;
 }
 
-hr{
+hr {
   width: 80vw;
-  margin: 0 auto;
+  margin: 50px auto;
 }
 
-.comparador h2{
+.comparador h2 {
   margin: 10px 0 60px 0;
 }
 
-body.dark h2, body.dark h3{
+body.dark h2,
+body.dark h3 {
   color: #f37ef3;
 }
 
-span{
+.ideasRecetasTitulo {
+  margin-bottom: 50px;
+}
+
+span {
   color: #800080;
   font-weight: bold;
   font-style: italic;
 }
 
-body.dark span{
+body.dark span {
   color: rgb(243, 126, 243);
 }
 
@@ -97,19 +102,20 @@ i {
   color: purple;
 }
 
-body.dark main i{
+body.dark main i {
   color: rgb(243, 126, 243);
 }
 
-td{
+td {
   border: 1px solid purple;
 }
 
-body.dark td{
+body.dark td {
   border: 1px solid rgb(243, 126, 243);
 }
 
-tbody i:hover, header i:hover {
+tbody i:hover,
+header i:hover {
   color: #c948c9;
   transition: 0.5s;
   transform: scale(1.5);
@@ -120,15 +126,16 @@ tbody i:hover, header i:hover {
 
 main p {
   width: 70%;
-  margin: 0 auto;
+  margin: 30px auto;
   text-align: center;
 }
 
-form, .comparador {
+form,
+.comparador {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 80px;
+  margin: 50px;
 }
 
 input,
@@ -138,7 +145,10 @@ select {
 }
 
 input[type="submit"],
-.guardadoLocal, .compare, #formularioAcceso button, #formularioRegistro button{
+.guardadoLocal,
+.compare,
+#formularioAcceso button,
+#formularioRegistro button {
   display: block;
   margin: 20px auto;
   font-size: 15px;
@@ -155,13 +165,15 @@ input[type="submit"],
 }
 
 input[type="submit"]:hover,
-.guardadoLocal:hover, .compare:hover {
+.guardadoLocal:hover,
+.compare:hover {
   background: linear-gradient(#a20dbd, #c123de);
   cursor: pointer;
 }
 
 input[type="submit"]:active,
-.guardadoLocal:active, .compare:active {
+.guardadoLocal:active,
+.compare:active {
   background: #a20dbd;
 }
 
@@ -185,7 +197,7 @@ table {
   border-spacing: 0;
 }
 
-body.dark table{
+body.dark table {
   border: 2px solid rgb(243, 126, 243);
 }
 
@@ -194,7 +206,7 @@ thead {
   color: white;
 }
 
-body.dark thead{
+body.dark thead {
   background-color: rgb(243, 126, 243);
   color: black;
 }
@@ -218,32 +230,33 @@ td:first-child {
   display: flex;
 }
 
-.legend{
+.legend {
   color: purple;
   font-weight: bold;
   font-style: italic;
   margin-bottom: 30px;
 }
 
-body.dark .legend{
+body.dark .legend {
   color: rgb(243, 126, 243);
 }
 
-.filterConteiner{
+.filterConteiner {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.comidasVegetarianas, .comidasRapidas{
+.comidasVegetarianas,
+.comidasRapidas {
   width: 70%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-ul{
+ul {
   margin: 30px;
   padding-left: 2rem;
   list-style-type: none;
@@ -257,10 +270,14 @@ ul li {
   background-repeat: no-repeat;
 }
 
+ul li.noIcon {
+  background-image: none;
+}
+
 
 /* Botón de modo claro/oscuro */
 
-.switch{
+.switch {
   background: #343D5B;
   border-radius: 1000px;
   border: none;
@@ -273,7 +290,7 @@ ul li {
   transition: .5s ease all;
 }
 
-.switch::after{
+.switch::after {
   content: "";
   display: block;
   width: 30px;
@@ -285,20 +302,20 @@ ul li {
   right: unset;
   border-radius: 100px;
   transition: .3s ease all;
-  box-shadow: 0px 0px 2px 2px rgba(0,0,0,.2);
+  box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, .2);
 }
 
-.switch.active{
+.switch.active {
   background: orange;
   color: black;
 }
 
-.switch.active::after{
+.switch.active::after {
   right: 0;
   left: unset;
 }
 
-.switch span{
+.switch span {
   width: 30px;
   height: 30px;
   line-height: 30px;
@@ -307,13 +324,14 @@ ul li {
   color: #fff;
 }
 
-.switch span i{
+.switch span i {
   color: white;
 }
 
 /* Pages de loguin y creación cuenta */
 
-.index form, .createAccount form{
+.index form,
+.createAccount form {
   color: white;
   background-color: rgba(0, 0, 0, 0.7);
   justify-content: center;
@@ -324,23 +342,27 @@ ul li {
 
 }
 
-.index input, .createAccount input{
+.index input,
+.createAccount input {
   width: 200px;
 }
 
-.index a, .createAccount a{
+.index a,
+.createAccount a {
   color: rgb(243, 126, 243);
   margin-top: 30px;
   font-weight: bold;
   transition: .5s;
 }
 
-.index a:hover, .createAccount a:hover{
+.index a:hover,
+.createAccount a:hover {
   font-style: italic;
   transform: scale(1.1);
 }
 
-#formularioAcceso button, #formularioRegistro button{
+#formularioAcceso button,
+#formularioRegistro button {
   width: auto;
   height: auto;
   padding: 10px;
@@ -348,7 +370,7 @@ ul li {
 
 /* Cerrar Sesión */
 
-.paginaRecetario header .cerrarSesion{
+.paginaRecetario header .cerrarSesion {
   position: absolute;
   color: purple;
   top: 10px;
@@ -364,7 +386,7 @@ ul li {
   font-size: 1.3em;
 }
 
-.paginaRecetario header .cerrarSesion:hover{
+.paginaRecetario header .cerrarSesion:hover {
   color: rgb(243, 126, 243);
   border: 1px solid rgb(243, 126, 243);
   transform: scale(1.1);
@@ -373,14 +395,14 @@ ul li {
 
 /* Sección de busqueda por API */
 
-.resultadoContainer{
+.resultadoContainer {
   display: flex;
   flex-wrap: wrap;
   min-height: 40vh;
   justify-content: space-evenly
 }
 
-.itemReceta{
+.itemReceta {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -394,13 +416,13 @@ ul li {
   transition: .5s;
 }
 
-.itemReceta img{
+.itemReceta img {
   width: 100%;
   display: block;
   object-fit: cover;
 }
 
-.itemReceta p{
+.itemReceta p {
   padding: 1rem;
   overflow-y: scroll;
   scrollbar-width: 0;
@@ -411,30 +433,31 @@ ul li {
   display: none;
 }
 
-.itemReceta h3, .itemReceta h4{
+.itemReceta h3,
+.itemReceta h4 {
   margin: 20px;
 }
 
-.itemReceta:hover{
+.itemReceta:hover {
   transform: scale(1.1);
 }
 
-.recetaApi{
+.recetaApi {
   display: flex;
   flex-direction: column;
   align-items: center
 }
 
-.buscadorRecetas{
+.buscadorRecetas {
   width: 300px;
   height: 40px;
   font-size: 1.6rem;
 }
 
-#search-btn{
+#search-btn {
   padding: 5px;
 }
 
-.fa-search{
+.fa-search {
   font-size: 1.6rem;
 }

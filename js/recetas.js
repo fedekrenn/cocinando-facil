@@ -26,7 +26,7 @@ let nuevaReceta = {};
 
 
 // Obtengo lo almacenado en localStore de haber algun dato, uso el operador avanzado lógico OR para que cree el array en caso de no haber nada
-let baseDeDatos = JSON.parse(localStorage.getItem('recetas guardadas')) || [];
+const baseDeDatos = JSON.parse(localStorage.getItem('recetas guardadas')) || [];
 
 // Cuando se carga la página llamo a la función que trae las recetas guardadas en el Local Storage
 window.onload = imprimirReceta(baseDeDatos);
@@ -35,19 +35,19 @@ window.onload = imprimirReceta(baseDeDatos);
 
 
 // Obtener Elementos del formulario y de la tabla
-let formulario = document.getElementById("formulario");
-let nombreReceta = document.getElementById("nombreReceta");
-let cantidadIngredientes = document.getElementById("cantidadIngredientes");
-let tiempoReceta = document.getElementById("tiempoCocina");
-let divContenedorTablaRecetas = document.querySelector(".creadorCantidadRecetas");
+const formulario = document.getElementById("formulario");
+const nombreReceta = document.getElementById("nombreReceta");
+const cantidadIngredientes = document.getElementById("cantidadIngredientes");
+const tiempoReceta = document.getElementById("tiempoCocina");
+const divContenedorTablaRecetas = document.querySelector(".creadorCantidadRecetas");
 const resultadoContainer = document.getElementById("resultadoContainer");
 
 
 
 // Obtengo botones
-let guardadoLocal = document.querySelector(".guardadoLocal");
-let deleteButton = document.querySelector(".delete");
-let compareButton = document.querySelector(".compare");
+const guardadoLocal = document.querySelector(".guardadoLocal");
+const deleteButton = document.querySelector(".delete");
+const compareButton = document.querySelector(".compare");
 const botonSwitch = document.querySelector("#switch");
 const botonDeBusqueda = document.querySelector("#search-btn");
 
@@ -66,7 +66,7 @@ cantidadIngredientes.addEventListener("blur", () => {
 formulario.addEventListener("submit", enviarFormulario);
 guardadoLocal.addEventListener("click", enviarALocal);
 compareButton.addEventListener("click", comparandoRecetas);
-botonDeBusqueda.addEventListener("click", obtenerRecetas);
+botonDeBusqueda.addEventListener("click", obtenerRecetasDeApi);
 
 
 // Modo Oscuro
@@ -116,7 +116,7 @@ function enviarFormulario(e) {
     e.preventDefault();
 
     // Cada ingrediente está en un input individual, por lo que con este código los recojo y envío a arrayIngredientes
-    let listadoIngredientes = document.querySelectorAll(".areaIngrediente");
+    const listadoIngredientes = document.querySelectorAll(".areaIngrediente");
     const arrayIngredientes = [];
     listadoIngredientes.forEach(ingrediente => arrayIngredientes.push(ingrediente.value));
 
@@ -145,9 +145,9 @@ function enviarALocal() {
     listadoDeRecetas = [];
 
     // Obtengo los valores de las recetas que el usuario cargó.
-    let nombre = document.getElementsByClassName("nombreRecetaGuardada");
-    let ingredientes = document.getElementsByClassName("recetaIngredientesGuardada");
-    let tiempo = document.getElementsByClassName("recetaTiemposGuardada");
+    const nombre = document.getElementsByClassName("nombreRecetaGuardada");
+    const ingredientes = document.getElementsByClassName("recetaIngredientesGuardada");
+    const tiempo = document.getElementsByClassName("recetaTiemposGuardada");
 
 
     // Ciclo que pushea toda la info al array listadoDeRecetas
@@ -155,9 +155,8 @@ function enviarALocal() {
 
         // Función que obtiene los ingredientes en forma string y los lista en un array
         function convertirEnArray() {
-            let obtenerIngredientes = ingredientes[i].textContent;
-            let nuevoArrayIngredientes = obtenerIngredientes.split(", ");
-            return nuevoArrayIngredientes;
+            const obtenerIngredientes = ingredientes[i].textContent;
+            return obtenerIngredientes.split(", ");
         }
 
         // Tomando los elementos del html creo el listado de recetas que serán guardados en el localStorage
@@ -165,7 +164,7 @@ function enviarALocal() {
     }
 
     // Convierto en string y envio al localStorage
-    let recetasJSON = JSON.stringify(listadoDeRecetas);
+    const recetasJSON = JSON.stringify(listadoDeRecetas);
     localStorage.setItem("recetas guardadas", recetasJSON);
 
     // Copio el array original a otros 2 ya que "listadoDeRecetas" será vaciado. Estos array de copia es para posteriormente generar el calculador de dificultad.
@@ -192,10 +191,10 @@ function enviarALocal() {
  crear las recetas que el usuario va cargando y luego para lo que está en el local storage */
 function imprimirReceta(array) {
 
-    let cuerpoTabla = document.querySelector("tbody");
+    const cuerpoTabla = document.querySelector("tbody");
 
     for (const i of array) {
-        let tabla = document.createElement("tr");
+        const tabla = document.createElement("tr");
 
         tabla.innerHTML = `<td class="nombreRecetaGuardada">${i.nombre}</td>
                            <td class="recetaIngredientesGuardada">${(i.ingredientes).join(", ")}</td>
@@ -204,7 +203,7 @@ function imprimirReceta(array) {
 
         cuerpoTabla.appendChild(tabla);
 
-        // Evento de borrado de receta en tabla, se declara en este scoope ya que se puede ejecutar luego de crear un elemento
+        // Evento de borrado de receta en tabla (icono tacho basura), se declara en este scoope ya que se puede ejecutar luego de crear un elemento
         tabla.querySelector(".botonBorrado").addEventListener("click", eliminarRecetaTabla);
     }
 
@@ -253,7 +252,10 @@ function generarSelectIngredientes() {
 
 
     /* COMIDAS VEGETARIANAS Y RÁPIDAS */
-    // Creación de arrays de comidas vegetarianas y otro para comidas rápidas usando métodos para que sólo se sumen las que yo quiero
+
+
+    // Creación de arrays, uno de comidas vegetarianas y otro para comidas rápidas usando métodos para que sólo se sumen las que yo quiero
+    // Filter busca por el tiempo de cocción y el método de la clase (para saber si tiene carne) y con map obtengo solo el nombre y no todo el objeto
     const comidasVegetarianas = (dificultadRecetas.filter((val) => val.recetaConCarne() == false)).map((el) => el.nombre);
     const comidasRapidas = (dificultadRecetas.filter((val) => val.tiempoDeCoccion <= 15)).map((el) => el.nombre);
 
@@ -266,8 +268,8 @@ function generarSelectIngredientes() {
     cuerpoComidasRapidas.innerHTML = "";
 
     // Aplico el <li> de cada receta, con un operador ternario que verifica que haya recetas en los array
-    comidasVegetarianas.length != 0 ? comidasVegetarianas.forEach((receta) => cuerpoComidasVegetarianas.innerHTML += `<li>${receta}</li>`) : cuerpoComidasVegetarianas.innerHTML = "No hay comidas aptas para vegetarianos";
-    comidasRapidas.length != 0 ? comidasRapidas.forEach((receta) => cuerpoComidasRapidas.innerHTML += `<li>${receta}</li>`) : cuerpoComidasRapidas.innerHTML = "No hay comidas rápidas de cocinar";
+    comidasVegetarianas.length != 0 ? comidasVegetarianas.forEach((receta) => cuerpoComidasVegetarianas.innerHTML += `<li>${receta}</li>`) : cuerpoComidasVegetarianas.innerHTML = `<li class="noIcon">No hay comidas aptas para vegetarianos</li>`;
+    comidasRapidas.length != 0 ? comidasRapidas.forEach((receta) => cuerpoComidasRapidas.innerHTML += `<li>${receta}</li>`) : cuerpoComidasRapidas.innerHTML = `<li class="noIcon">No hay comidas rápidas de cocinar</li>`;
 
     // Vacío el array para evitar duplicaciones
     dificultadRecetas = [];
@@ -340,32 +342,31 @@ function aplicarModoOscuro() {
 }
 
 
-async function obtenerRecetas() {
-    
+async function obtenerRecetasDeApi() {
+
     //Obtengo lo que el usuario desea buscar
-    let textoBusqueda = document.getElementById("buscadorRecetas").value.trim();
+    const textoBusqueda = document.getElementById("buscadorRecetas").value.trim();
 
     //Llamo a la api de recetas "Edaman" y almaceno la info en la constante datosObtenidos
-    let llamadoApi = await fetch(`https://api.edamam.com/search?q=${textoBusqueda}&app_id=3f9e6bb6&app_key=f5c476faed9ba3c9819e87e79f9e90e0`);
+    const llamadoApi = await fetch(`https://api.edamam.com/search?q=${textoBusqueda}&app_id=3f9e6bb6&app_key=f5c476faed9ba3c9819e87e79f9e90e0`);
     const datosObtenidos = await llamadoApi.json();
     let html = "";
 
     // Ciclo que por cada receta que encontró en la Api imprime en el DOM la card con c/u.
     for (const receta of datosObtenidos.hits) {
-        
+
         // Creo una lista de ingredientes
-        let listaIngredientesApi = [];
+        const listaIngredientesApi = [];
         // Dentro de cada receta en la api hay arrays con ingredientes pero que son objetos con más propiedades internas, por lo que lo pusheo a mi lista sólo los nombres
         receta.recipe.ingredients.forEach((ing) => listaIngredientesApi.push(ing.text));
-        
+
         // Aplico al html lo generado
-        html += `
-            <div class="itemReceta">
-                <img src="${receta.recipe.image}" alt="comida">
-                <h3>${receta.recipe.label}</h3>
-                <h4>Ingredientes:</h4>
-                <p>${listaIngredientesApi.join("<br><br>")}</p>
-            </div>`;
+        html += `<div class="itemReceta">
+                    <img src="${receta.recipe.image}" alt="comida">
+                    <h3>${receta.recipe.label}</h3>
+                    <h4>Ingredientes:</h4>
+                    <p>${listaIngredientesApi.join("<br><br>")}</p>
+                </div>`;
     }
     resultadoContainer.innerHTML = html;
 }
