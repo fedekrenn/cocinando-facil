@@ -9,13 +9,13 @@ class Recetas {
         return (this.ingredientes).length;
     }
     recetaConCarne() {                                // Método para saber si la receta tiene carne
-        let listaDeCarne = ["carne", "pollo", "pescado", "jamon", "salchicha"];
+        let listaDeCarne = ["carne", "pollo", "pescado", "jamon", "salchicha", "salame", "atun"];
         return (this.ingredientes).some((val) => listaDeCarne.includes(val.toLowerCase()));
     }
 }
 
 
-// Arrays, son definidos con let y no con const ya que posteriormente se modifican(borrado para nueva carga)
+// Arrays y objeto, son definidos con let y no con const ya que posteriormente se modifican(borrado para nueva carga)
 let dificultadRecetas = [];
 let recetasAComparar = [];
 let listadoDeRecetas = [];
@@ -25,16 +25,16 @@ let nuevaReceta = {};
 
 
 
-// Obtengo lo almacenado en localStore de haber algun dato, uso el operador avanzado lógico OR para que cree el array en caso de no haber nada
+// Obtengo lo almacenado en localStore en caso de que exista algun dato, uso el operador avanzado lógico OR para que cree el array en caso de que no haya nada
 const baseDeDatos = JSON.parse(localStorage.getItem('recetas guardadas')) || [];
 
 // Cuando se carga la página llamo a la función que trae las recetas guardadas en el Local Storage
-window.onload = imprimirReceta(baseDeDatos);
+window.onload = imprimirReceta(baseDeDatos), guardadoDeRecetas();
 
 
 
 
-// Obtener Elementos del formulario y de la tabla
+// Obtengo Elementos del dom
 const formulario = document.getElementById("formulario");
 const nombreReceta = document.getElementById("nombreReceta");
 const cantidadIngredientes = document.getElementById("cantidadIngredientes");
@@ -42,18 +42,22 @@ const tiempoReceta = document.getElementById("tiempoCocina");
 const divContenedorTablaRecetas = document.querySelector(".creadorCantidadRecetas");
 const resultadoContainer = document.getElementById("resultadoContainer");
 
-
-
 // Obtengo botones
-const guardadoLocal = document.querySelector(".guardadoLocal");
+const borrarTodo = document.querySelector(".borrarTodo");
 const deleteButton = document.querySelector(".delete");
 const compareButton = document.querySelector(".compare");
 const botonSwitch = document.querySelector("#switch");
 const botonDeBusqueda = document.querySelector("#search-btn");
 
 
+
+
 // Ejecución de funciones según clicks o cambios del usuario
 cantidadIngredientes.addEventListener("change", crearInputs);
+formulario.addEventListener("submit", agregarRecetaATabla);
+borrarTodo.addEventListener("click", borrarTotalTablaRecetas);
+compareButton.addEventListener("click", comparandoRecetas);
+botonDeBusqueda.addEventListener("click", obtenerRecetasDeApi);
 cantidadIngredientes.addEventListener("blur", () => {
     Toastify({
         text: "Si la receta lleva carne, no olvides cargarla",
@@ -62,11 +66,8 @@ cantidadIngredientes.addEventListener("blur", () => {
             background: "linear-gradient(to right, #800080, #f37ef3)",
         },
     }).showToast();
-})
-formulario.addEventListener("submit", enviarFormulario);
-guardadoLocal.addEventListener("click", enviarALocal);
-compareButton.addEventListener("click", comparandoRecetas);
-botonDeBusqueda.addEventListener("click", obtenerRecetasDeApi);
+});
+
 
 
 // Modo Oscuro
@@ -91,7 +92,8 @@ if (localStorage.getItem("dark-mode") === "true") {
 // Creamos en el HTML los input para el form que crea la receta
 function crearInputs() {
 
-    borrarInputs(); // Ejecuto antes que nada la función de borrado para que, si hay previamente ingredientes cargados, sean borrados
+    // Ejecuto antes que nada la función de borrado para que, si hay previamente ingredientes cargados, sean borrados
+    borrarInputs();
 
     for (let i = 0; i < cantidadIngredientes.value; i++) {
         divContenedorTablaRecetas.innerHTML += `<input type="text" class="areaIngrediente" placeholder="Ingrediente ${i + 1}" required>`;
@@ -110,7 +112,7 @@ function borrarInputs() {
 
 
 // Función que se ejecuta al enviar el form
-function enviarFormulario(e) {
+function agregarRecetaATabla(e) {
 
     // Reseteo de evento default
     e.preventDefault();
@@ -136,10 +138,11 @@ function enviarFormulario(e) {
 
     // Llamo a la función que borra los input HTML
     borrarInputs();
+    enviarALocal()
 }
 
 
-function enviarALocal() {
+function guardadoDeRecetas() {
 
     // Aquí vacío el array, para evitar que si da muchas veces al boton "Guardar receta", se multipliquen valores
     listadoDeRecetas = [];
@@ -174,16 +177,49 @@ function enviarALocal() {
 
     // Ejecuto la función que crea las opciones de lista desplegable para el comparador
     generarSelectIngredientes();
+}
 
+
+
+/* Con esta función, llamo a guardadoDeRecetas() pero agrego el sweet alert para mostrar la confirmación al usuario,
+desglosarla en funciones apartes me sirve para llamar a guardadoDeRecetas() sin la notificación cuando se carga la página */
+
+function enviarALocal() {
+
+    guardadoDeRecetas();
 
     // Alerta de carga correcta
     Swal.fire({
         position: 'top-end',
         icon: 'success',
-        title: 'Las recetas se guardaron correctamente!',
+        title: 'La receta se guardó correctamente!',
         showConfirmButton: false,
         timer: 1500
     })
+}
+
+
+function borrarTotalTablaRecetas() {
+
+    Swal.fire({
+        title: '¿Seguro de borrar todas las recetas?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, eliminar todas',
+        cancelButtonText: 'No, conservarlas'
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: 'Borrado exitoso!',
+                icon: 'success',
+                text: 'Eliminaste todas las recetas'
+            });
+            const cuerpoTabla = document.querySelector(".tbody");
+            cuerpoTabla.innerHTML = "";
+            guardadoDeRecetas();
+        }
+    });
 }
 
 
@@ -191,7 +227,7 @@ function enviarALocal() {
  crear las recetas que el usuario va cargando y luego para lo que está en el local storage */
 function imprimirReceta(array) {
 
-    const cuerpoTabla = document.querySelector("tbody");
+    const cuerpoTabla = document.querySelector(".tbody");
 
     for (const i of array) {
         const tabla = document.createElement("tr");
@@ -226,9 +262,9 @@ function imprimirReceta(array) {
                 });
                 const botonApretado = event.target;
                 botonApretado.closest("tr").remove();
+                guardadoDeRecetas();
             }
         });
-
     }
 
     // Reseteo el array, ya que si no cuando se da a guardar se crean muchas veces tablas con recetas repetidas
@@ -342,7 +378,8 @@ function aplicarModoOscuro() {
 }
 
 
-async function obtenerRecetasDeApi() {
+async function obtenerRecetasDeApi(e) {
+    e.preventDefault();
 
     //Obtengo lo que el usuario desea buscar
     const textoBusqueda = document.getElementById("buscadorRecetas").value.trim();

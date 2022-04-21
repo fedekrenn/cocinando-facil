@@ -140,12 +140,13 @@ form,
 
 input,
 select {
+  padding-left: 4px;
   width: 30%;
   margin: 10px 0;
 }
 
 input[type="submit"],
-.guardadoLocal,
+.borrarTodo,
 .compare,
 #formularioAcceso button,
 #formularioRegistro button {
@@ -165,14 +166,14 @@ input[type="submit"],
 }
 
 input[type="submit"]:hover,
-.guardadoLocal:hover,
+.borrarTodo:hover,
 .compare:hover {
   background: linear-gradient(#a20dbd, #c123de);
   cursor: pointer;
 }
 
 input[type="submit"]:active,
-.guardadoLocal:active,
+.borrarTodo:active,
 .compare:active {
   background: #a20dbd;
 }
@@ -395,6 +396,16 @@ ul li.noIcon {
 
 /* Sección de busqueda por API */
 
+#buscaApi{
+  flex-direction: row;
+}
+
+
+
+#search-btn {
+  padding: 5px;
+}
+
 .resultadoContainer {
   display: flex;
   flex-wrap: wrap;
@@ -454,9 +465,7 @@ ul li.noIcon {
   font-size: 1.6rem;
 }
 
-#search-btn {
-  padding: 5px;
-}
+
 
 .fa-search {
   font-size: 1.6rem;

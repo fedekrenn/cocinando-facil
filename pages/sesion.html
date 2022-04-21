@@ -74,12 +74,10 @@
 
             </tbody>
         </table>
-        <button class="btn guardadoLocal" data-aos="zoom-in-up">Guardar recetas</button>
+        <button class="btn borrarTodo" data-aos="zoom-in-up">Eliminar todo</button>
         <hr>
         <div class="comparador">
             <h2>Compará qué receta es más fácil de cocinar según la cantidad de ingredientes</h2>
-            <p class="legend animate__animated animate__headShake animate__infinite">¡Antes de comparar debes hacer
-                click en el botón "GUARDAR RECETAS" 💾 de arriba!</p>
             <label for="primerComparador">Selecciona la 1° receta</label>
             <select name="" id="primerComparador">
 
@@ -92,8 +90,6 @@
         </div>
         <hr>
         <div class="filterConteiner">
-            <p class="legend animate__animated animate__headShake animate__infinite">¡No olvides clickear "GUARDAR
-                RECETAS" 💾!</p>
             <div class="comidasVegetarianas">
                 <h3>Estas son las comidas aptas para vegetarianos 🥑🥕🥗</h3>
                 <ul id="comidasVegetarianas">
@@ -111,10 +107,10 @@
         <div class="recetaApi">
             <h2 class="ideasRecetasTitulo">¿Falto de imaginación? Buscá un ingrediente y nosotros te decimos recetas que
                 podés preparar</h2>
-            <div>
+            <form id="buscaApi">
                 <input type="text" class="buscadorRecetas" placeholder="ingresá un ingrediente" id="buscadorRecetas">
                 <button type="submit" id="search-btn"><i class="fas fa-search"></i></button>
-            </div>
+            </form>
         </div>
         <div class="resultadoContainer" id="resultadoContainer">
 
