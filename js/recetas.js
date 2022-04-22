@@ -89,7 +89,7 @@ if (localStorage.getItem("dark-mode") === "true") {
 
 //FUNCIONES
 
-// Creamos en el HTML los input para el form que crea la receta
+// Función que crea en el HTML los input según cuantos ingredientes elige el usuario
 function crearInputs() {
 
     // Ejecuto antes que nada la función de borrado para que, si hay previamente ingredientes cargados, sean borrados
@@ -101,7 +101,7 @@ function crearInputs() {
 }
 
 
-// Borramos en el HTML los inputs que previamente creamos, sirve para resetear la carga de ingredientes cuando enviamos una receta
+// Función para borrar en el HTML los inputs que previamente creamos, sirve para resetear la carga de ingredientes cuando enviamos una receta
 function borrarInputs() {
 
     // Se crea dentro de esta función ya que en la carga inicial del documento no existe ningun input, se crea según la cantidad que indica el usuario, entonces la llamo cuando la necesito
@@ -136,12 +136,30 @@ function agregarRecetaATabla(e) {
     cantidadIngredientes.value = "";
     tiempoReceta.value = "";
 
-    // Llamo a la función que borra los input HTML
+    // Llamo a la función que borra los input (para que pueda cargar otra receta) y confirmo el guardado
     borrarInputs();
-    enviarALocal()
+    confirmacionDeGuardado();
 }
 
 
+/* Con esta función, llamo a la otra función "guardadoDeRecetas()"" pero agrego el sweet alert para mostrar la confirmación al usuario,
+desglosarla en funciones apartes me sirve para llamar a guardadoDeRecetas() sin la notificación cuando se carga la página */
+function confirmacionDeGuardado() {
+
+    guardadoDeRecetas();
+
+    // Alerta de carga correcta
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'La receta se guardó correctamente!',
+        showConfirmButton: false,
+        timer: 1500
+    })
+}
+
+
+// Función que lee de la tabla todas las recetas cargadas, envía al local y ejecuta las funciones para comparar y demás
 function guardadoDeRecetas() {
 
     // Aquí vacío el array, para evitar que si da muchas veces al boton "Guardar receta", se multipliquen valores
@@ -180,49 +198,6 @@ function guardadoDeRecetas() {
 }
 
 
-
-/* Con esta función, llamo a guardadoDeRecetas() pero agrego el sweet alert para mostrar la confirmación al usuario,
-desglosarla en funciones apartes me sirve para llamar a guardadoDeRecetas() sin la notificación cuando se carga la página */
-
-function enviarALocal() {
-
-    guardadoDeRecetas();
-
-    // Alerta de carga correcta
-    Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'La receta se guardó correctamente!',
-        showConfirmButton: false,
-        timer: 1500
-    })
-}
-
-
-function borrarTotalTablaRecetas() {
-
-    Swal.fire({
-        title: '¿Seguro de borrar todas las recetas?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Sí, eliminar todas',
-        cancelButtonText: 'No, conservarlas'
-    }).then((result) => {
-
-        if (result.isConfirmed) {
-            Swal.fire({
-                title: 'Borrado exitoso!',
-                icon: 'success',
-                text: 'Eliminaste todas las recetas'
-            });
-            const cuerpoTabla = document.querySelector(".tbody");
-            cuerpoTabla.innerHTML = "";
-            guardadoDeRecetas();
-        }
-    });
-}
-
-
 /* Aplicamos cada receta a la tabla, se pasa un parámetro ya que lo reutilizo dependiendo el array, primero para
  crear las recetas que el usuario va cargando y luego para lo que está en el local storage */
 function imprimirReceta(array) {
@@ -240,12 +215,12 @@ function imprimirReceta(array) {
         cuerpoTabla.appendChild(tabla);
 
         // Evento de borrado de receta en tabla (icono tacho basura), se declara en este scoope ya que se puede ejecutar luego de crear un elemento
-        tabla.querySelector(".botonBorrado").addEventListener("click", eliminarRecetaTabla);
+        tabla.querySelector(".botonBorrado").addEventListener("click", eliminarRecetaIndividual);
     }
 
 
     // Función para borrar la fila (por ende el ingrediente) del producto que el usuario clickee
-    function eliminarRecetaTabla(event) {
+    function eliminarRecetaIndividual(event) {
         Swal.fire({
             title: 'Está seguro de eliminar la receta?',
             icon: 'warning',
@@ -271,6 +246,33 @@ function imprimirReceta(array) {
     listadoDeRecetas = [];
 }
 
+
+//Función que borra todas las recetas de la tabla
+function borrarTotalTablaRecetas() {
+
+    Swal.fire({
+        title: '¿Seguro de borrar todas las recetas?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, eliminar todas',
+        cancelButtonText: 'No, conservarlas'
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: 'Borrado exitoso!',
+                icon: 'success',
+                text: 'Eliminaste todas las recetas'
+            });
+            const cuerpoTabla = document.querySelector(".tbody");
+            cuerpoTabla.innerHTML = "";
+            guardadoDeRecetas();
+        }
+    });
+}
+
+
+// Función que toma las recetas y las coloca dentro de la lista desplegable para ser comparadas
 function generarSelectIngredientes() {
 
     // Borro lo previamente cargado para que cuando se apriete el botón no haya opciones duplicadas
@@ -312,6 +314,7 @@ function generarSelectIngredientes() {
 }
 
 
+// Función para eliminar los valores del select
 function removerComparacion() {
 
     // Obtengo del dom la etiqueta select
@@ -324,6 +327,8 @@ function removerComparacion() {
 
 }
 
+
+// Función que compara las recetas y da aviso (en base a cuantos ingredientes tiene), de la más dificil de cocinar
 function comparandoRecetas() {
 
     // Obtengo del dom la etiqueta select
@@ -366,6 +371,7 @@ function comparandoRecetas() {
 }
 
 
+// Función que aplica el modo oscuro
 function aplicarModoOscuro() {
 
     // Seteamos clases en el html
@@ -378,6 +384,7 @@ function aplicarModoOscuro() {
 }
 
 
+// Función asíncrona que a través de una API externa obtengo recetas
 async function obtenerRecetasDeApi(e) {
     e.preventDefault();
 
