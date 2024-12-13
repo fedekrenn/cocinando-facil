@@ -11,7 +11,7 @@ body {
 }
 
 body.dark {
-  background-color: #343d5b;
+  background-color: #1e1e1e;
   color: white;
   transition: 0.5s ease all;
 }
@@ -349,20 +349,30 @@ ul li.noIcon {
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: hidden;
+  overflow-y: scroll;
   border-radius: 20px;
-  box-shadow: 0 10px 25px -12px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 10px 25px -12px rgba(0, 0, 0, 1);
   margin: 1.5rem 1rem;
   width: 30%;
   min-width: 300px;
-  height: 800px;
+  height: 700px;
   transition: 0.5s;
+
+  h3 {
+    font-size: 1em;
+  }
 }
 
-.itemReceta img {
+.itemReceta::-webkit-scrollbar {
+  display: none;
+}
+
+.itemReceta > img {
+  min-height: 300px;
   width: 100%;
-  display: block;
+  height: 300px;
   object-fit: cover;
+  display: block;
 }
 
 .itemReceta p {
@@ -382,6 +392,29 @@ ul li.noIcon {
 
 .itemReceta:hover {
   transform: scale(1.1);
+}
+
+.itemReceta ul {
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-image: none;
+    margin: 5px;
+    padding: 0;
+    font-size: .7em;
+  }
+
+  img {
+    display: inline;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+  }
 }
 
 .recetaApi {

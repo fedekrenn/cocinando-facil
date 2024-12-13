@@ -336,15 +336,18 @@ async function getRecipesFromApi(e) {
     const recipeIngredients = [];
 
     recipeItem.recipe.ingredients.forEach((ingredient) =>
-      recipeIngredients.push(ingredient.text)
+      recipeIngredients.push(ingredient)
     );
 
     html += `
       <div class="itemReceta">
         <img src="${recipeItem.recipe.image}" alt="comida">
         <h3>${recipeItem.recipe.label}</h3>
-        <h4>Ingredientes:</h4>
-        <p>${recipeIngredients.join("<br><br>")}</p>
+        <ul>
+          ${recipeIngredients.slice(0, 10).map((ingredient) => {
+            return `<li><img src="${ingredient.image}" alt="${ingredient.food}"> ${ingredient.text}</li>`
+          }).join("")}
+        </ul>
       </div>
     `;
   }
