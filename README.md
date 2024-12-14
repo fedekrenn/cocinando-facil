@@ -1,29 +1,76 @@
-# 👨‍🍳🍳 Cocinando Fácil | Web para gestión de recetas y obtener ideas
-Proyecto final para el curso de JavaScript en la carrera Fullstack de Coderhouse
+# 👨‍🍳🍳 Cocinando Fácil | Web para gestión de recetas e inspiración culinaria
 
-## 📝 Detalle
-Simulador de recetas de cocinas que está compuesto de varias secciones. Al ingresar se simula un login a través de localStorage
+**Proyecto JS Vanilla para la carga y gestión de recetas de cocina.**
 
-Cuenta con la opción de armar tu propio recetario introduciendo el nombre de la misma, listado de ingredientes y y el tiempo de cocción.
+---
 
-Una vez almacenadas todas la recetas (Con posibilidad de hacer un borrado general o de cada una), automáticamente el simulador te dará la opción de que puedas comparar "la dificultad" (entre sí) de cocinarlas en base a la cantidad de ingredientes.
+## 📝 Descripción
 
-Ten en cuenta que las recetas se almacenan también en el localStorage, por lo que si sales de la página las tendrás disponibles la próxima vez que ingreses!
+**Cocinando Fácil** es una aplicación web interactiva y sencilla diseñada para ayudarte a organizar tus recetas de cocina, evaluar su dificultad y encontrar ideas cuando no sabes qué cocinar. El proyecto está desarrollado en JavaScript Vanilla y hace uso de `localStorage` para una experiencia persistente y sin complicaciones.
 
-El simulado te te mostrará en apartados particulares recetas que sean para vegetarianos (sin carne) y las que sean rápidas de cocinar (15 minutos o menos), tomando como referencia las recetas que previamente cargaste. 
+### Características principales:
 
-Por último, si estás sin ideas, tendrás una sección en la que sólo con poner 1 ingrediente te mostraremos hasta 10 recetas que podrás cocinar con dicho ingrediente
+- **Persistencia de datos:** Utilizando `localStorage`.
+- **Creación de recetas personalizadas:**
+  - Introduce el nombre, ingredientes y tiempo de cocción.
+  - Las recetas se almacenan localmente, permitiendo su acceso incluso después de cerrar la página.
+- **Organización y gestión:**
+  - Opciones para eliminar recetas individuales o borrar todas a la vez.
+  - Comparación automática de la "dificultad" entre recetas, basada en la cantidad de ingredientes.
+- **Filtros automáticos:**
+  - Recetas para vegetarianos (sin carne).
+  - Recetas rápidas (15 minutos o menos).
+- **Inspiración culinaria:**
+  - Introduce un ingrediente y descubre hasta 10 recetas sugeridas que lo incluyan.
 
-## 💻 Deploy
-[Cocinando Fácil, recetas online](https://fedekrenn.github.io/cocinando-facil/)
+---
 
+## 🚀 Deploy
 
+Explora el proyecto en vivo: [Cocinando Fácil, recetas online](https://fedekrenn.github.io/cocinando-facil/)
 
+---
 
-<h2> 🙋‍♂️ Hola, Soy Federico Krenn</h2>
-:nerd_face: Me encuentro cursando la carrera de fullstack developer en Coderhouse 
-<br>
-🌱 Actualmente estoy cursando Backend
-<br></br>
-📫 Conectemos en Linkedin: https://www.linkedin.com/in/fkrenn/
+## 🛠 Tecnologías utilizadas
 
+- **JavaScript Vanilla:** Desarrollo funcional y de interfaz.
+- **HTML5 y CSS3:** Estructura y diseño.
+- **localStorage:** Almacenamiento persistente de datos.
+
+---
+
+## 📚 Librerías utilizadas
+
+- **Font Awesome:** Iconos
+- **Google Fonts:** Tipografías (Poppins, Raleway)
+- **AOS:** Animaciones en scroll 
+- **Animate.css:** Animaciones adicionales
+- **Toastify:** Notificaciones
+- **SweetAlert2:** Alertas personalizadas 
+
+---
+
+## 👨‍💻 Contribuciones
+
+¡Colabora con este proyecto! Si tienes ideas, sugerencias o mejoras, abre un issue o envía un pull request.
+
+### Clonar el proyecto
+
+```bash
+git clone https://github.com/fedekrenn/cocinando-facil.git
+```
+
+---
+
+## 🙋‍♂️ Sobre mí
+
+Soy **Federico Krenn**, desarrollador web Fullstack. Actualmente estoy cursando:
+
+- **Tecnicatura en Desarrollo Web** en [ISPC](https://www.ispc.edu.ar/).
+- **Tecnicatura en Software Libre** en [UNL](https://www.unl.edu.ar/).
+
+### ¡Conectemos!
+
+- **LinkedIn:** [https://www.linkedin.com/in/fkrenn/](https://www.linkedin.com/in/fkrenn/)
+
+---
